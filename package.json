@@ -19,6 +19,9 @@
   "packageManager": "yarn@4.1.1",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "client/*",
+    "server/*",
+    "common/*"
   ]
 }
