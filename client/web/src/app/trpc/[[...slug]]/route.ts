@@ -9,10 +9,10 @@ const handler = async (req: NextRequest) => {
 
   // Service Binding 을 사용할 수 있다면 사용합니다.
   if (SERVER_TRPC_DOMAIN == null || SERVER_TRPC_DOMAIN.trim() === "") {
-    const { fetch } = getRequestContext().env.SERVER_APP_BINDING;
+    const fetcher = getRequestContext().env.SERVER_APP_BINDING;
 
     try {
-      return fetch(req);
+      return fetcher.fetch(req);
     } catch (e) {
       console.error(e);
       return new Response(`Cannot connect to server. (Service Binding)`, {
