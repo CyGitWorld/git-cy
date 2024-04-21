@@ -17,6 +17,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.11.0",
     "@repo/eslint-config": "*",
     "@repo/server-app": "*",
     "@repo/typescript-config": "*",

@@ -9,7 +9,7 @@ interface Props {}
 const trpc = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({
-      url: "http://localhost:8787/trpc",
+      url: "/trpc",
     }),
   ],
 });

@@ -12,7 +12,6 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 import { appRouter } from "./app";
 import { Hono } from "hono";
-import { cors } from "hono/cors";
 
 export interface Env {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -43,7 +42,7 @@ export default {
   ): Promise<Response> {
     const app = new Hono();
 
-    app.all("/trpc/*", cors(), async () => {
+    app.all("/trpc/*", async () => {
       return fetchRequestHandler({
         endpoint: "/trpc",
         req: request,
