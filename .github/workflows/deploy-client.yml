@@ -1,0 +1,22 @@
+name: Deploy Client
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Client
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: npx @cloudflare/next-on-pages@1
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: "client/web"
+          command: pages deploy .vercel/output/static --project-name=gitcy
