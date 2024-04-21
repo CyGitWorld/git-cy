@@ -14,7 +14,8 @@ const handler = async (req: NextRequest) => {
     try {
       return fetch(req);
     } catch (e) {
-      return new Response(`서버 API에 연결할 수 없습니다. (Service Binding)`, {
+      console.error(e);
+      return new Response(`Cannot connect to server. (Service Binding)`, {
         status: 500,
       });
     }
@@ -27,7 +28,8 @@ const handler = async (req: NextRequest) => {
   try {
     return fetch(url, req);
   } catch (e) {
-    return new Response(`서버 API에 연결할 수 없습니다.`, {
+    console.error(e);
+    return new Response(`Cannot connect to server.`, {
       status: 500,
     });
   }
