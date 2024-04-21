@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build
+        working-directory: client/web
         run: npx @cloudflare/next-on-pages@1
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
