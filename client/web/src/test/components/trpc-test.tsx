@@ -1,12 +1,12 @@
 "use client";
 
 import { FC } from "react";
-import { trpcReact } from "@/common/trpc";
+import { trpc } from "@/common/trpc";
 
 interface Props {}
 
 export const TrpcTest: FC<Props> = ({}) => {
-  const { data, refetch } = trpcReact.ping.useQuery({ name: "hello" });
+  const { data, refetch } = trpc.ping.useQuery({ name: "hello" });
 
   return (
     <div>
