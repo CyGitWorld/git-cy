@@ -1,4 +1,4 @@
-import { TrpcTest } from "@/components/trpc-test";
+import { TrpcTest } from "@/test/components/trpc-test";
 import { titleCss } from "./page.css";
 
 export default function Home() {
