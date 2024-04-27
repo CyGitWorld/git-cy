@@ -8,7 +8,11 @@ if (process.env.NODE_ENV === "development") {
 const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
+};
 
 const config = withVanillaExtract(nextConfig);
 

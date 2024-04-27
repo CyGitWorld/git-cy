@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import StyledComponentsRegistry from "@/common/styled-components/registry";
 import { QueryProvider } from "@/common/trpc/provider";
 import { React95Provider } from "@/common/react95/provider";
 
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="kr">
       <body className={inter.className}>
-        <React95Provider>
-          <QueryProvider>
-            {children}
-          </QueryProvider>
-        </React95Provider>
+        <StyledComponentsRegistry>
+          <React95Provider>
+            <QueryProvider>
+              {children}
+            </QueryProvider>
+          </React95Provider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
