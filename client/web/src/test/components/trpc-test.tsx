@@ -10,7 +10,7 @@ export const TrpcTest: FC<Props> = ({}) => {
 
   return (
     <div>
-      <h2>TrpcTest</h2>
+      <h2>Trpc Test</h2>
       <button onClick={() => refetch()}>Request</button>
       <div style={{ whiteSpace: "pre" }}>{JSON.stringify(data, null, 2)}</div>
     </div>

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+
+import { QueryProvider } from "@/common/trpc/provider";
+import { React95Provider } from "@/common/react95/provider";
+
 import "./reset.css";
-import { QueryProvider } from "../common/trpc/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +21,11 @@ export default function RootLayout({
   return (
     <html lang="kr">
       <body className={inter.className}>
-        <QueryProvider>{children}</QueryProvider>
+        <React95Provider>
+          <QueryProvider>
+            {children}
+          </QueryProvider>
+        </React95Provider>
       </body>
     </html>
   );
