@@ -20,6 +20,7 @@
   "dependencies": {
     "@trpc/server": "^11.0.0-rc.340",
     "hono": "^4.2.4",
+    "query-string": "^9.0.0",
     "zod": "^3.22.4"
   }
 }
