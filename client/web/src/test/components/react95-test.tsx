@@ -12,6 +12,7 @@ export const React95Test: FC<Props> = ({}) => {
       <MenuList>
         <MenuListItem>🎤 Sing</MenuListItem>
         <MenuListItem>💃🏻 Dance</MenuListItem>
+        <MenuListItem>안녕하세요 가나다라마바사</MenuListItem>
         <Separator />
         <MenuListItem disabled>😴 Sleep</MenuListItem>
       </MenuList>
