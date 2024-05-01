@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import { Inter } from "next/font/google";
+
+import StyledComponentsRegistry from "@/common/styled-components/registry";
+import { QueryProvider } from "@/common/trpc/provider";
+import { React95Provider } from "@/common/react95/provider";
+
 import "./reset.css";
-import { QueryProvider } from "../common/trpc/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +37,13 @@ export default function RootLayout({
   return (
     <html lang="kr">
       <body className={msSansSerifFont.className}>
-        <QueryProvider>{children}</QueryProvider>
+        <StyledComponentsRegistry>
+          <React95Provider>
+            <QueryProvider>
+              {children}
+            </QueryProvider>
+          </React95Provider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

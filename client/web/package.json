@@ -16,7 +16,9 @@
     "@vanilla-extract/css": "^1.14.2",
     "next": "14.2.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react95": "^4.0.0",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.11.0",
