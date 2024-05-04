@@ -38,16 +38,18 @@ function Content() {
       return;
     }
     (async () => {
-      const res = await requestApiJson((api) =>
+      const { accessToken } = await requestApiJson((api) =>
         api.auth.login.$post({
           json: {
             code,
           },
         })
       );
-      console.log("requestApiJson", res);
-      // WIP: home 으로 라우팅
-      // router.push("/");
+      if (accessToken == null) {
+        // WIP: 예외처리
+        return;
+      }
+      router.push("/");
     })();
   }, []);
   // WIP: loading 가운데 표시
