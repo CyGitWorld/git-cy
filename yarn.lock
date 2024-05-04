@@ -994,6 +994,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hono/zod-validator@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@hono/zod-validator@npm:0.2.1"
+  peerDependencies:
+    hono: ">=3.9.0"
+    zod: ^3.19.1
+  checksum: 10c0/de399abc8ab26552111c745ae0ecad714af549e79b0412c2285d057bde72b434b09b8f9b65940d3a4b2dd82dcfb52e1601ac505effb410e4439e9c8835a99d7d
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -1293,10 +1303,10 @@ __metadata:
   dependencies:
     "@cloudflare/vitest-pool-workers": "npm:^0.1.0"
     "@cloudflare/workers-types": "npm:^4.20240405.0"
+    "@hono/zod-validator": "npm:^0.2.1"
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
-    "@trpc/server": "npm:^11.0.0-rc.340"
-    hono: "npm:^4.2.4"
+    hono: "npm:^4.3.0"
     typescript: "npm:^5.0.4"
     vitest: "npm:1.3.0"
     wrangler: "npm:^3.51.2"
@@ -1321,9 +1331,6 @@ __metadata:
     "@repo/server-app": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@tanstack/react-query": "npm:^5.29.2"
-    "@trpc/client": "npm:^11.0.0-rc.340"
-    "@trpc/react-query": "npm:^11.0.0-rc.348"
-    "@trpc/server": "npm:^11.0.0-rc.340"
     "@types/eslint": "npm:^8.56.5"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
@@ -1334,6 +1341,8 @@ __metadata:
     eslint: "npm:^8"
     eslint-config-next: "npm:14.2.1"
     eslint-plugin-turbo: "npm:^1.13.3"
+    hono: "npm:^4.3.0"
+    ky: "npm:^1.2.4"
     next: "npm:14.2.1"
     react: "npm:^18"
     react-dom: "npm:^18"
@@ -1495,35 +1504,6 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
   checksum: 10c0/80a47d2c04b1f68b8890c7d48c4e6330c0c83569f751d91a631291ca4f32e5521663b93cfd12fa06800aa73ae50a372b91614b85679eec3a92dba5b4c5f87b2e
-  languageName: node
-  linkType: hard
-
-"@trpc/client@npm:^11.0.0-rc.340":
-  version: 11.0.0-rc.340
-  resolution: "@trpc/client@npm:11.0.0-rc.340"
-  peerDependencies:
-    "@trpc/server": 11.0.0-rc.340+d1652d1bc
-  checksum: 10c0/d52feaa0557180e06ce7baead2e356f247caefd4c1f3df3117c2d460eb56fcb738d2d45d608724cfdc8e4e962e72ffa3fb8ecb73684e560f9967cb8980023d39
-  languageName: node
-  linkType: hard
-
-"@trpc/react-query@npm:^11.0.0-rc.348":
-  version: 11.0.0-rc.348
-  resolution: "@trpc/react-query@npm:11.0.0-rc.348"
-  peerDependencies:
-    "@tanstack/react-query": ^5.25.0
-    "@trpc/client": 11.0.0-rc.348+9d8b631a7
-    "@trpc/server": 11.0.0-rc.348+9d8b631a7
-    react: ">=18.2.0"
-    react-dom: ">=18.2.0"
-  checksum: 10c0/8f6401d71a18a758124d590eeca460a7d357ac54259c770b1c0802c7cc410ec09239be7391767a530755d9a83b050dca47c48999d540581425630d50d589836d
-  languageName: node
-  linkType: hard
-
-"@trpc/server@npm:^11.0.0-rc.340":
-  version: 11.0.0-rc.340
-  resolution: "@trpc/server@npm:11.0.0-rc.340"
-  checksum: 10c0/f9bfaa79dff5a5b99477c99d02fd6cfdfd7a5d0b7ee52176bff88c47ee62370c7f8589370dcecf356bda8d1ee4f37ea13f7e3fb673031bda8ce89e85d7180a0f
   languageName: node
   linkType: hard
 
@@ -4830,10 +4810,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:^4.2.4":
-  version: 4.2.4
-  resolution: "hono@npm:4.2.4"
-  checksum: 10c0/f6e7d21ebd152beb6e91d5d36d0bef66f9126873dc2b652745ab1fb2429ba8dff09c1b07982d0e29c3ca2b6ff2038fd947cb948e8bf27a7f2a9f429a1728c8fe
+"hono@npm:^4.3.0":
+  version: 4.3.1
+  resolution: "hono@npm:4.3.1"
+  checksum: 10c0/a23ceeee3347a8ccc6c7d166a923c8d620029a427860b1af2cbd3c41a57091958dea3cb96c06728be8d95d8f703e105335c8e1967816cbfff55f5ea553c8c9af
   languageName: node
   linkType: hard
 
@@ -5424,6 +5404,13 @@ __metadata:
   dependencies:
     json-buffer: "npm:3.0.1"
   checksum: 10c0/aa52f3c5e18e16bb6324876bb8b59dd02acf782a4b789c7b2ae21107fab95fab3890ed448d4f8dba80ce05391eeac4bfabb4f02a20221342982f806fa2cf271e
+  languageName: node
+  linkType: hard
+
+"ky@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "ky@npm:1.2.4"
+  checksum: 10c0/d0df4c1685655a8731ff8c0a014d6050485a0e52fb1d6cc107235f8c3879b6569fc497d6d15cd6b8977db7102253a0e201899f2c24408e51a4c207179c601121
   languageName: node
   linkType: hard
 
