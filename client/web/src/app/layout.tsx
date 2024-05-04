@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
-import { Inter } from "next/font/google";
 
-import StyledComponentsRegistry from "@/common/styled-components/registry";
+import { StyledComponentsRegistry } from "@/common/styled-components/registry";
 import { QueryProvider } from "@/common/trpc/provider";
 import { React95Provider } from "@/common/react95/provider";
 
 import "./reset.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
