@@ -1,8 +1,9 @@
 "use client";
 
-import { FC } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { apiClient, getApiPath, requestApiJson } from "@/common/api";
+import { FC } from "react";
+
+import { getApiPath, requestApiJson } from "@/common/api";
 
 interface Props {}
 
