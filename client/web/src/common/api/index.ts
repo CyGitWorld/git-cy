@@ -29,4 +29,10 @@ export const requestApiJson = async <
   return data;
 };
 
+export const getApiPath = (getter: (api: typeof apiClient) => URL) => {
+  const url = getter(apiClient);
+
+  return url.pathname;
+};
+
 export type { InferRequestType, InferResponseType };
