@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
 import queryString from "query-string";
 import { GITHUB_AUTHORIZE_SERVER_URL } from "./constant";
+import { useRouter } from "next/navigation";
 
 export default function GithubLoginButton() {
   const router = useRouter();
@@ -10,8 +10,8 @@ export default function GithubLoginButton() {
         const githubAuthUri = queryString.stringifyUrl({
           url: GITHUB_AUTHORIZE_SERVER_URL,
           query: {
-            redirect_id: env.CLIENT_ID,
-            redirect_uri: `${router.basePath}/oauth/redirect`,
+            client_id: process.env.CLIENT_ID,
+            redirect_uri: `${window.location.origin}/oauth/redirect`,
           },
         });
         router.push(githubAuthUri);

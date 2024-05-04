@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { PropsWithChildren, useEffect } from "react";
 import { Hourglass } from "react95";
 import { loginByGithub } from "../remote";
+import { trpc } from "@/common/trpc";
 
 export default function Page() {
   return (
@@ -31,14 +32,18 @@ function CodeNullishGuard({ children }: PropsWithChildren) {
 function Content() {
   const code = useGetOAuthCode();
   const router = useRouter();
+  const { refetch } = trpc.login.useQuery(
+    { code: code ?? "123", redirect_uri: "" },
+    { enabled: false }
+  );
   useEffect(() => {
     if (code == null) {
       return;
     }
     (async () => {
-      const res = await loginByGithub({ code });
+      const res = await refetch();
       // WIP: home 으로 라우팅
-      router.push("/");
+      // router.push("/");
     })();
   }, []);
   // WIP: loading 가운데 표시
