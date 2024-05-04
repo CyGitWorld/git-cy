@@ -41,7 +41,6 @@ export default {
   ): Promise<Response> {
     const app = new Hono();
 
-
     app.use("*", cors({ origin: "*" }));
 
     app.route("/api", createApiRouter());

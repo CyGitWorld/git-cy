@@ -1,8 +1,11 @@
-import queryString from "query-string";
-import { GITHUB_AUTHORIZE_SERVER_URL } from "./constant";
-import { useRouter } from "next/navigation";
+"use client";
 
-export default function GithubLoginButton() {
+import { useRouter } from "next/navigation";
+import queryString from "query-string";
+
+import { GITHUB_AUTHORIZE_SERVER_URL } from "./constant";
+
+export function GithubLoginButton() {
   const router = useRouter();
   return (
     <button

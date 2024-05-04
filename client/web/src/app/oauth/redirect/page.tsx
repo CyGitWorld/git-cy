@@ -3,8 +3,8 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { PropsWithChildren, useEffect } from "react";
 import { Hourglass } from "react95";
-import { loginByGithub } from "../remote";
-import { trpc } from "@/common/trpc";
+
+import { requestApiJson } from "@/common/api";
 
 export default function Page() {
   return (
@@ -32,16 +32,20 @@ function CodeNullishGuard({ children }: PropsWithChildren) {
 function Content() {
   const code = useGetOAuthCode();
   const router = useRouter();
-  const { refetch } = trpc.login.useQuery(
-    { code: code ?? "123", redirect_uri: "" },
-    { enabled: false }
-  );
+
   useEffect(() => {
     if (code == null) {
       return;
     }
     (async () => {
-      const res = await refetch();
+      const res = await requestApiJson((api) =>
+        api.auth.login.$post({
+          json: {
+            code,
+          },
+        })
+      );
+      console.log("requestApiJson", res);
       // WIP: home 으로 라우팅
       // router.push("/");
     })();
