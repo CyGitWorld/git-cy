@@ -29,8 +29,4 @@ export const requestApiJson = async <
   return data;
 };
 
-const k = requestApiJson((api) =>
-  api.test.v1["hono-test-post"].$post({ json: { name: "asdf" } })
-);
-
 export type { InferRequestType, InferResponseType };
