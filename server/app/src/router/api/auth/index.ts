@@ -32,29 +32,19 @@ export const createAuthServer = ({}: AuthServerDeps = {}) => {
         },
       });
       // WIP: 예외 처리
-      const { access_token: accessToken } = await ky
-        .get(uri, {
-          headers: { Accept: "application/json" },
-        })
-        .json<{ access_token: string }>();
+      const { access_token: accessToken } = (await fetch(uri, {
+        headers: { Accept: "application/json" },
+      }).then((r) => r.json())) as { access_token: string };
 
-      // if (accessToken == null) {
-      //   console.error("에러가 있는뎁쇼?");
-      //   return ctx.status(403);
-      // }
+      const { name } = (await fetch(`https://api.github.com/user`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/json",
+          "User-Agent": "CyGitWorld",
+        },
+      }).then((r) => r.json())) as { name: string };
 
-      const { name } = await ky
-        .get(`https://api.github.com/user`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            Accept: "application/json",
-            "User-Agent": "CyGitWorld",
-          },
-        })
-        .json<{ name: string }>();
-
-      const accessToken2 = "123";
-      return ctx.json({ name, accessToken: accessToken2 }, 200);
+      return ctx.json({ name, accessToken }, 200);
     }
   );
 };
