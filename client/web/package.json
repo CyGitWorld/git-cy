@@ -23,6 +23,7 @@
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.11.0",
     "@cloudflare/workers-types": "^4.20240419.0",
+    "@next/eslint-plugin-next": "^14.2.3",
     "@repo/eslint-config": "*",
     "@repo/server-app": "*",
     "@repo/typescript-config": "*",
@@ -30,9 +31,11 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/parser": "^7.8.0",
     "@vanilla-extract/next-plugin": "^2.4.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.1",
+    "eslint-plugin-turbo": "^1.13.3",
     "typescript": "^5",
     "wrangler": "^3.51.2"
   }
