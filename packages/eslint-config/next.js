@@ -31,11 +31,13 @@ module.exports = {
     "node_modules/",
     "*.d.ts",
   ],
+  plugins: ["simple-import-sort"],
   rules: {
     "no-restricted-exports": [
       "error", { "restrictDefaultExports": { "direct": true } },
     ],
-    "no-empty-pattern": "off"
+    "no-empty-pattern": "off",
+    "simple-import-sort/imports": "error",
   },
   overrides: [
     { files: ["*.js?(x)", "*.ts?(x)"] },

@@ -1,11 +1,11 @@
+import "./reset.css";
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import { StyledComponentsRegistry } from "@/common/styled-components/registry";
 import { QueryProvider } from "@/common/api/query-provider";
 import { React95Provider } from "@/common/react95/provider";
-
-import "./reset.css";
+import { StyledComponentsRegistry } from "@/common/styled-components/registry";
 
 export const metadata: Metadata = {
   title: "Create Next App",
