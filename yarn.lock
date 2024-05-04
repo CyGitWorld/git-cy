@@ -994,6 +994,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hono/zod-validator@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@hono/zod-validator@npm:0.2.1"
+  peerDependencies:
+    hono: ">=3.9.0"
+    zod: ^3.19.1
+  checksum: 10c0/de399abc8ab26552111c745ae0ecad714af549e79b0412c2285d057bde72b434b09b8f9b65940d3a4b2dd82dcfb52e1601ac505effb410e4439e9c8835a99d7d
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -1284,10 +1294,11 @@ __metadata:
   dependencies:
     "@cloudflare/vitest-pool-workers": "npm:^0.1.0"
     "@cloudflare/workers-types": "npm:^4.20240405.0"
+    "@hono/zod-validator": "npm:^0.2.1"
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@trpc/server": "npm:^11.0.0-rc.340"
-    hono: "npm:^4.2.4"
+    hono: "npm:^4.3.0"
     typescript: "npm:^5.0.4"
     vitest: "npm:1.3.0"
     wrangler: "npm:^3.51.2"
@@ -1322,6 +1333,8 @@ __metadata:
     "@vanilla-extract/next-plugin": "npm:^2.4.0"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.2.1"
+    hono: "npm:^4.3.0"
+    ky: "npm:^1.2.4"
     next: "npm:14.2.1"
     react: "npm:^18"
     react-dom: "npm:^18"
@@ -4749,10 +4762,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:^4.2.4":
-  version: 4.2.4
-  resolution: "hono@npm:4.2.4"
-  checksum: 10c0/f6e7d21ebd152beb6e91d5d36d0bef66f9126873dc2b652745ab1fb2429ba8dff09c1b07982d0e29c3ca2b6ff2038fd947cb948e8bf27a7f2a9f429a1728c8fe
+"hono@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "hono@npm:4.3.0"
+  checksum: 10c0/99e76246369cff316d6eddf3aa4604e97d9fc9148afd56d4a19b5a69c88645d27bf3d8c7c22deee3f170f135070b0b8a4c8ea31567a2c4bf752e72c9f2bf4257
   languageName: node
   linkType: hard
 
@@ -5343,6 +5356,13 @@ __metadata:
   dependencies:
     json-buffer: "npm:3.0.1"
   checksum: 10c0/aa52f3c5e18e16bb6324876bb8b59dd02acf782a4b789c7b2ae21107fab95fab3890ed448d4f8dba80ce05391eeac4bfabb4f02a20221342982f806fa2cf271e
+  languageName: node
+  linkType: hard
+
+"ky@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "ky@npm:1.2.4"
+  checksum: 10c0/d0df4c1685655a8731ff8c0a014d6050485a0e52fb1d6cc107235f8c3879b6569fc497d6d15cd6b8977db7102253a0e201899f2c24408e51a4c207179c601121
   languageName: node
   linkType: hard
 
