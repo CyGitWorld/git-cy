@@ -12,9 +12,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  env: {
-    CLIENT_ID: process.env.CLIENT_ID,
-  },
 };
 
 const config = withVanillaExtract(nextConfig);

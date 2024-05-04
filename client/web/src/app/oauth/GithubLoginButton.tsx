@@ -13,7 +13,7 @@ export function GithubLoginButton() {
         const githubAuthUri = queryString.stringifyUrl({
           url: GITHUB_AUTHORIZE_SERVER_URL,
           query: {
-            client_id: process.env.CLIENT_ID,
+            client_id: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
             redirect_uri: `${window.location.origin}/oauth/redirect`,
           },
         });
