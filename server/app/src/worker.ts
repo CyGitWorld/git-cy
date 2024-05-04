@@ -8,9 +8,6 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-
-import { appRouter } from "./app";
 import { Hono } from "hono";
 import { createApiRouter } from "./router/api";
 import { cors } from "hono/cors";
@@ -32,10 +29,6 @@ export interface Env {
   // MY_QUEUE: Queue;
 }
 
-const createContext = () => {
-  return {};
-};
-
 export default {
   async fetch(
     request: Request,
@@ -45,15 +38,6 @@ export default {
     const app = new Hono();
 
     app.use("*", cors({ origin: "*" }));
-
-    app.all("/trpc/*", async () => {
-      return fetchRequestHandler({
-        endpoint: "/trpc",
-        req: request,
-        router: appRouter,
-        createContext,
-      });
-    });
 
     app.route("/api", createApiRouter());
 

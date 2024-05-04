@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import localFont from 'next/font/local'
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 
 import StyledComponentsRegistry from "@/common/styled-components/registry";
-import { QueryProvider } from "@/common/trpc/provider";
 import { React95Provider } from "@/common/react95/provider";
 
 import "./reset.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { QueryProvider } from "@/common/api/query-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,15 +15,15 @@ export const metadata: Metadata = {
 const galmuri11Font = localFont({
   src: [
     {
-      path: './Galmuri11.woff2',
-      weight: '400',
+      path: "./Galmuri11.woff2",
+      weight: "400",
     },
     {
-      path: './Galmuri11-Bold.woff2',
-      weight: '600',
+      path: "./Galmuri11-Bold.woff2",
+      weight: "600",
     },
   ],
-  display: 'swap',
+  display: "swap",
 });
 
 export default function RootLayout({
@@ -39,9 +36,7 @@ export default function RootLayout({
       <body className={galmuri11Font.className}>
         <StyledComponentsRegistry>
           <React95Provider>
-            <QueryProvider>
-              {children}
-            </QueryProvider>
+            <QueryProvider>{children}</QueryProvider>
           </React95Provider>
         </StyledComponentsRegistry>
       </body>
