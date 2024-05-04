@@ -8,10 +8,9 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-
-import { appRouter } from "./app";
 import { Hono } from "hono";
+import { createApiRouter } from "./router/api";
+import { cors } from "hono/cors";
 
 export interface Env {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -33,9 +32,6 @@ export interface Env {
   CLIENT_SECRET: string;
 }
 
-const createContext = (env: Env): Env => {
-  return { ...env };
-};
 
 export default {
   async fetch(
@@ -45,14 +41,10 @@ export default {
   ): Promise<Response> {
     const app = new Hono();
 
-    app.all("/trpc/*", async () => {
-      return fetchRequestHandler({
-        endpoint: "/trpc",
-        req: request,
-        router: appRouter,
-        createContext: () => createContext(env),
-      });
-    });
+
+    app.use("*", cors({ origin: "*" }));
+
+    app.route("/api", createApiRouter());
 
     return app.fetch(request, env, ctx);
   },

@@ -18,7 +18,6 @@ module.exports = {
     node: true,
     browser: true,
   },
-  plugins: ["only-warn"],
   settings: {
     "import/resolver": {
       typescript: {
@@ -30,6 +29,23 @@ module.exports = {
     // Ignore dotfiles
     ".*.js",
     "node_modules/",
+    "*.d.ts",
   ],
-  overrides: [{ files: ["*.js?(x)", "*.ts?(x)"] }],
+  plugins: ["simple-import-sort"],
+  rules: {
+    "no-restricted-exports": [
+      "error", { "restrictDefaultExports": { "direct": true } },
+    ],
+    "no-empty-pattern": "off",
+    "simple-import-sort/imports": "error",
+  },
+  overrides: [
+    { files: ["*.js?(x)", "*.ts?(x)"] },
+    {
+      files: ['src/app/**/{page,layout,not-found}.tsx'],
+      rules: {
+        'no-restricted-exports': 'off',
+      },
+    },
+  ],
 };
