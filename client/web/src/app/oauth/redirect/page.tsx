@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { PropsWithChildren, useEffect } from "react";
 import { Hourglass } from "react95";
+import styled from "styled-components";
 
 import { requestApiJson } from "@/common/api";
 
@@ -38,20 +39,33 @@ function Content() {
       return;
     }
     (async () => {
-      const { accessToken } = await requestApiJson((api) =>
-        api.auth.login.$post({
-          json: {
-            code,
-          },
-        })
-      );
-      if (accessToken == null) {
-        // WIP: 예외처리
-        return;
+      try {
+        await requestApiJson((api) =>
+          api.auth.login.$post({
+            json: {
+              code,
+            },
+          })
+        );
+
+        router.push("/");
+      } catch (e) {
+        // TODO: Alert
+        router.push("/");
       }
-      router.push("/");
     })();
   }, []);
-  // WIP: loading 가운데 표시
-  return <Hourglass size={32} style={{ margin: 20 }} />;
+  return (
+    <CenterPosition>
+      <Hourglass size={80} style={{ margin: 20 }} />
+    </CenterPosition>
+  );
 }
+
+const CenterPosition = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
