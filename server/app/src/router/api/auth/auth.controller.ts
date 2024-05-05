@@ -9,7 +9,7 @@ type Bindings = {
   CLIENT_SECRET: string;
 };
 
-export const createAuthServer = (authService: AuthService) => {
+export const createAuthController = (authService: AuthService) => {
   return new Hono<{ Bindings: Bindings }>().post(
     "/login",
     zValidator(
