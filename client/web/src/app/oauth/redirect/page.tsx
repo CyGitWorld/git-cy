@@ -1,41 +1,24 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { PropsWithChildren, useEffect } from "react";
+import { useEffect } from "react";
 import { Hourglass } from "react95";
 import styled from "styled-components";
 
 import { requestApiJson } from "@/common/api";
-
-export default function Page() {
-  return (
-    <CodeNullishGuard>
-      <Content />
-    </CodeNullishGuard>
-  );
-}
 
 function useGetOAuthCode() {
   const searchParams = useSearchParams();
   return searchParams.get("code");
 }
 
-function CodeNullishGuard({ children }: PropsWithChildren) {
-  const code = useGetOAuthCode();
-
-  if (code == null) {
-    return null;
-  }
-
-  return <>{children}</>;
-}
-
-function Content() {
+export default function Page() {
   const code = useGetOAuthCode();
   const router = useRouter();
 
   useEffect(() => {
     if (code == null) {
+      router.push("/");
       return;
     }
     (async () => {
