@@ -4,10 +4,19 @@ import { creaetTestRouter } from "./test";
 import { createAuthController } from "./auth/auth.controller";
 import { Env } from "../../worker";
 
-export const createApiRouter = ({ env }: { env: Env }) => {
+export const createApiRouter = ({
+  env,
+  services,
+}: {
+  env: Env;
+  services: { authService: AuthService };
+}) => {
   const api = new Hono()
     .route("/test", creaetTestRouter())
-    .route("/auth", createAuthController({ service: new AuthService(), env }));
+    .route(
+      "/auth",
+      createAuthController({ service: services.authService, env })
+    );
 
   return api;
 };

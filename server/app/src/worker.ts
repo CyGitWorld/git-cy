@@ -11,6 +11,7 @@
 import { Hono } from "hono";
 import { createApiRouter } from "./router/api";
 import { cors } from "hono/cors";
+import { AuthService } from "./router/api/auth/auth.service";
 
 export interface Env {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -43,7 +44,10 @@ export default {
 
     app.use("*", cors({ origin: "*" }));
 
-    app.route("/api", createApiRouter({ env }));
+    app.route(
+      "/api",
+      createApiRouter({ env, services: { authService: new AuthService() } })
+    );
 
     return app.fetch(request, env, ctx);
   },
