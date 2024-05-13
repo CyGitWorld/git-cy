@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Hourglass } from "react95";
 import styled from "styled-components";
 
-import { requestApiJson } from "@/common/api";
+import { useLoginMutation } from "../useLoginMutation";
 
 function useGetOAuthCode() {
   const searchParams = useSearchParams();
@@ -15,6 +15,7 @@ function useGetOAuthCode() {
 export default function Page() {
   const code = useGetOAuthCode();
   const router = useRouter();
+  const { mutateAsync: loginRequest } = useLoginMutation();
 
   useEffect(() => {
     if (code == null) {
@@ -23,13 +24,7 @@ export default function Page() {
     }
     (async () => {
       try {
-        await requestApiJson((api) =>
-          api.auth.login.$post({
-            json: {
-              code,
-            },
-          })
-        );
+        await loginRequest({ code });
 
         router.push("/");
       } catch (e) {
@@ -37,6 +32,8 @@ export default function Page() {
         router.push("/");
       }
     })();
+
+    return () => {};
   }, []);
   return (
     <CenterPosition>
