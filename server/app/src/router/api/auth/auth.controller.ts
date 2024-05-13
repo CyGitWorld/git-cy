@@ -3,14 +3,16 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { AuthService } from "./auth.service";
 import { HTTPException } from "hono/http-exception";
+import { Env } from "../../../worker";
 
-type Bindings = {
-  CLIENT_ID: string;
-  CLIENT_SECRET: string;
-};
-
-export const createAuthController = (authService: AuthService) => {
-  return new Hono<{ Bindings: Bindings }>().post(
+export const createAuthController = ({
+  service: authService,
+  env,
+}: {
+  service: AuthService;
+  env: Env;
+}) => {
+  return new Hono().post(
     "/login",
     zValidator(
       "json",
@@ -23,8 +25,8 @@ export const createAuthController = (authService: AuthService) => {
         const { code } = ctx.req.valid("json");
 
         const accessToken = await authService.getGithubAccessToken({
-          clientId: ctx.env.CLIENT_ID,
-          clientSecret: ctx.env.CLIENT_SECRET,
+          clientId: env.CLIENT_ID,
+          clientSecret: env.CLIENT_SECRET,
           code,
         });
 

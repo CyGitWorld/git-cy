@@ -27,6 +27,10 @@ export interface Env {
   //
   // Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
   // MY_QUEUE: Queue;
+
+  // Environment Variables
+  CLIENT_ID: string;
+  CLIENT_SECRET: string;
 }
 
 export default {
@@ -39,7 +43,7 @@ export default {
 
     app.use("*", cors({ origin: "*" }));
 
-    app.route("/api", createApiRouter());
+    app.route("/api", createApiRouter({ env }));
 
     return app.fetch(request, env, ctx);
   },
