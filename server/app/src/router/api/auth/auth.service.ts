@@ -22,7 +22,7 @@ export class AuthService {
         client_id: this.env.CLIENT_ID,
         client_secret: this.env.CLIENT_ID,
         // TODO: redirect_uri 변경
-        redirect_uri: "http://localhost:3000/oauth/redirect",
+        redirect_uri: this.env.OAUTH_REDIRECT_URI,
         code: code,
       },
     });

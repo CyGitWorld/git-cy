@@ -32,6 +32,7 @@ export interface Env {
   // Environment Variables
   CLIENT_ID: string;
   CLIENT_SECRET: string;
+  OAUTH_REDIRECT_URI: string;
 }
 
 export default {
