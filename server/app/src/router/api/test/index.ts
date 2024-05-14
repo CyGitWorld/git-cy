@@ -24,7 +24,6 @@ export const creaetTestRouter = () => {
         .selectAll()
         .where("CustomerId", "=", 1)
         .executeTakeFirst();
-      console.log("result", result);
 
       return c.json({ result: "test success 1" }, 200);
     })
