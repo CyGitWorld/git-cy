@@ -46,7 +46,10 @@ export default {
 
     app.route(
       "/api",
-      createApiRouter({ env, services: { authService: new AuthService() } })
+      createApiRouter({
+        env,
+        services: { authService: new AuthService({ env }) },
+      })
     );
 
     return app.fetch(request, env, ctx);

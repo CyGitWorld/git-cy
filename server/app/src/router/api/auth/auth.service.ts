@@ -1,4 +1,5 @@
 import queryString from "query-string";
+import { Env } from "../../../worker";
 
 type GithubAccessTokenError = {
   error: string;
@@ -9,20 +10,17 @@ type GithubUserInfoError = {
   message: string;
 };
 export class AuthService {
-  async getGithubAccessToken({
-    clientId,
-    clientSecret,
-    code,
-  }: {
-    clientId: string;
-    clientSecret: string;
-    code: string;
-  }) {
+  private env;
+  constructor({ env }: { env: Env }) {
+    this.env = env;
+  }
+
+  async getGithubAccessToken({ code }: { code: string }) {
     const uri = queryString.stringifyUrl({
       url: `https://github.com/login/oauth/access_token`,
       query: {
-        client_id: clientId,
-        client_secret: clientSecret,
+        client_id: this.env.CLIENT_ID,
+        client_secret: this.env.CLIENT_ID,
         // TODO: redirect_uri 변경
         redirect_uri: "http://localhost:3000/oauth/redirect",
         code: code,

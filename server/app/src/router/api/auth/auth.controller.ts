@@ -24,11 +24,7 @@ export const createAuthController = ({
       try {
         const { code } = ctx.req.valid("json");
 
-        const accessToken = await authService.getGithubAccessToken({
-          clientId: env.CLIENT_ID,
-          clientSecret: env.CLIENT_SECRET,
-          code,
-        });
+        const accessToken = await authService.getGithubAccessToken({ code });
 
         const { name } = await authService.getGithbuUserInfo({ accessToken });
 
