@@ -1,0 +1,33 @@
+'use client';
+
+import Link from "next/link";
+import { AppBar, Button, Toolbar } from "react95"
+
+import { navButtonListCss, plcaeholderCss, toolbarCss } from "./index.css";
+
+export const Header = () => {
+  return (
+    <header className={plcaeholderCss}>
+      <AppBar>
+        <Toolbar className={toolbarCss}>
+          <div>
+            :Logo
+          </div>
+          <div className={navButtonListCss}>
+            <Link 
+              href="/minihome/:user-name/guestbook"              
+            >
+              <Button
+                size='lg'
+                variant='menu'
+                type='button'
+              >
+                Minihome
+              </Button>
+            </Link>
+          </div>
+        </Toolbar>
+      </AppBar>
+    </header>
+  )
+}
