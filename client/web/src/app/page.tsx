@@ -1,16 +1,24 @@
+import { Fotoer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { React95Test } from "@/test/components/react95-test";
 
-import { titleCss } from "./page.css";
+import { MinihomeButton } from "./components/minihome-button";
+import { mainContainerCss, titleCss } from "./page.css";
 
 export default function Home() {
   return (
+    // TODO :: Container component
     <>
       <Header />
-      <main>
-        <h1 className={titleCss}>Hello GitCy World!</h1>
-        <React95Test />
+      <main className={mainContainerCss}>
+        :Image
+        <h1 className={titleCss}>
+          Hi, I'm CyGitWorld.
+          <br/>
+          :Description
+        </h1>
+        <MinihomeButton />
       </main>
+      <Fotoer />
     </>
   );
 }

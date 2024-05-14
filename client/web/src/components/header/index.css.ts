@@ -8,7 +8,6 @@ export const plcaeholderCss = style({
 
 export const toolbarCss = style({
   height: `${HEADER_HEIGT}px`,
-  padding: '16px !important',
   justifyContent: 'space-between',
 })
 
