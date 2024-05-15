@@ -6,11 +6,12 @@ interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const Container = ({
   children,
+  className,
   ...props
 }: React.PropsWithChildren<ContainerProps>) => {
   return (
     <div
-      className={clsx(containerRootCss, props.className)}
+      className={clsx(containerRootCss, className)}
       {...props}
     >
       {children}

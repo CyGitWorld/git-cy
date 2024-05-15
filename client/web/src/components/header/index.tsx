@@ -1,16 +1,17 @@
 'use client';
 
-// import { Container } from "@components/container";
 import Link from "next/link";
 import { AppBar, Button, Toolbar } from "react95"
+
+import { Container } from "@/components/container";
 
 import { navButtonListCss, plcaeholderCss, toolbarCss } from "./index.css";
 
 export const Header = () => {
   return (
-    <header className={plcaeholderCss}>
+    <div className={plcaeholderCss}>
       <AppBar>
-        {/* <Container> */}
+        <Container>
           <Toolbar className={toolbarCss}>
             <div>
               :Logo
@@ -29,8 +30,8 @@ export const Header = () => {
               </Link>
             </div>
           </Toolbar>
-        {/* </Container> */}
+        </Container>
       </AppBar>
-    </header>
+    </div>
   )
 }
