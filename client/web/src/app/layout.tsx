@@ -38,9 +38,7 @@ export default function RootLayout({
       <body className={clsx(galmuri11Font.className, theme)}>
         <StyledComponentsRegistry>
           <React95Provider>
-            <QueryProvider>
-              {children}
-            </QueryProvider>
+            <QueryProvider>{children}</QueryProvider>
           </React95Provider>
         </StyledComponentsRegistry>
       </body>
