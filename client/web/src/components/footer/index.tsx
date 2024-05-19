@@ -3,35 +3,22 @@
 import Link from "next/link";
 import { AppBar, Toolbar } from "react95";
 
-import { Container } from "@/components/container"
+import { Container } from "@/components/container";
 
 import { appbarCss, navButtonListCss, toolbarCss } from "./index.css";
 
-export const Fotoer = () => {
+export const Footer = () => {
   return (
-    <AppBar
-      position='relative'
-      className={appbarCss}
-    >
+    <AppBar position="relative" className={appbarCss}>
       <Container>
         <Toolbar className={toolbarCss}>
-          <div>
-            :Logo
-          </div>
+          <div>:Logo</div>
           <div className={navButtonListCss}>
-            <Link
-              href="/minihome/:user-name/guestbook"              
-            >
-              Github
-            </Link>
-            <Link
-              href="/minihome/:user-name/guestbook"              
-            >
-              LinkedIn
-            </Link>
+            <Link href="/minihome/:user-name/guestbook">Github</Link>
+            <Link href="/minihome/:user-name/guestbook">LinkedIn</Link>
           </div>
         </Toolbar>
       </Container>
     </AppBar>
-  )
-}
+  );
+};

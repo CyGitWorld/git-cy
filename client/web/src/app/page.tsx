@@ -1,5 +1,5 @@
 import { Container } from "@/components/container";
-import { Fotoer } from "@/components/footer";
+import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
 import { MinihomeButton } from "./components/minihome-button";
@@ -20,7 +20,7 @@ export default function Home() {
           <MinihomeButton />
         </Container>
       </main>
-      <Fotoer />
+      <Footer />
     </>
   );
 }
