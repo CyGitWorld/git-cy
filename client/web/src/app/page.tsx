@@ -14,7 +14,7 @@ export default function Home() {
           :Image
           <h1 className={titleCss}>
             Hi, I'm CyGitWorld.
-            <br/>
+            <br />
             :Description
           </h1>
           <MinihomeButton />

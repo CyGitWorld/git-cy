@@ -11,6 +11,7 @@
 import { Hono } from "hono";
 import { createApiRouter } from "./router/api";
 import { cors } from "hono/cors";
+import { AuthService } from "./router/api/auth/auth.service";
 
 export interface Env {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -27,6 +28,11 @@ export interface Env {
   //
   // Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
   // MY_QUEUE: Queue;
+
+  // Environment Variables
+  CLIENT_ID: string;
+  CLIENT_SECRET: string;
+  OAUTH_REDIRECT_URI: string;
 }
 
 export default {
@@ -39,7 +45,13 @@ export default {
 
     app.use("*", cors({ origin: "*" }));
 
-    app.route("/api", createApiRouter());
+    app.route(
+      "/api",
+      createApiRouter({
+        env,
+        services: { authService: new AuthService({ env }) },
+      })
+    );
 
     return app.fetch(request, env, ctx);
   },

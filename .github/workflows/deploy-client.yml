@@ -16,6 +16,7 @@ jobs:
         run: npx @cloudflare/next-on-pages@1
         env:
           NEXT_PUBLIC_SERVER_API_HOST: ${{ vars.NEXT_PUBLIC_SERVER_API_HOST }}
+          NEXT_PUBLIC_GITHUB_CLIENT_ID: ${{ vars.NEXT_PUBLIC_GITHUB_CLIENT_ID }}
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:

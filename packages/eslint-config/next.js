@@ -8,7 +8,6 @@ module.exports = {
     "eslint:recommended",
     "prettier",
     require.resolve("@vercel/style-guide/eslint/next"),
-    "eslint-config-turbo",
   ],
   globals: {
     React: true,
@@ -34,7 +33,8 @@ module.exports = {
   plugins: ["simple-import-sort"],
   rules: {
     "no-restricted-exports": [
-      "error", { "restrictDefaultExports": { "direct": true } },
+      "error",
+      { restrictDefaultExports: { direct: true } },
     ],
     "no-empty-pattern": "off",
     "simple-import-sort/imports": "error",
@@ -44,9 +44,9 @@ module.exports = {
   overrides: [
     { files: ["*.js?(x)", "*.ts?(x)"] },
     {
-      files: ['src/app/**/{page,layout,not-found}.tsx'],
+      files: ["src/app/**/{page,layout,not-found}.tsx"],
       rules: {
-        'no-restricted-exports': 'off',
+        "no-restricted-exports": "off",
       },
     },
   ],
