@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Hourglass } from "react95";
 import styled from "styled-components";
 
-import { useLoginMutation } from "../useLoginMutation";
+import { useLoginMutation } from "../use-login-mutation";
 
 function useGetOAuthCode() {
   const searchParams = useSearchParams();
