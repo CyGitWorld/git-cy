@@ -1,10 +1,9 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { Hourglass } from "react95";
 import styled from "styled-components";
-
-import { useEffectOnce } from "@/hooks/useEffectOnce";
 
 import { useLoginMutation } from "../useLoginMutation";
 
@@ -18,7 +17,7 @@ export default function Page() {
   const router = useRouter();
   const { mutateAsync: loginRequest } = useLoginMutation();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     if (code == null) {
       router.push("/");
       return;
