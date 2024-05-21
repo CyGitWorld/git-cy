@@ -20,7 +20,7 @@ export class AuthService {
       url: `https://github.com/login/oauth/access_token`,
       query: {
         client_id: this.env.CLIENT_ID,
-        client_secret: this.env.CLIENT_ID,
+        client_secret: this.env.CLIENT_SECRET,
         // TODO: redirect_uri 변경
         redirect_uri: this.env.OAUTH_REDIRECT_URI,
         code: code,
@@ -32,6 +32,7 @@ export class AuthService {
       | { access_token: string }
       | GithubAccessTokenError;
     if ("error" in res) {
+      console.log("res", res);
       throw new Error(res.error);
     }
 
