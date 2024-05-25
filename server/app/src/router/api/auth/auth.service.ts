@@ -1,6 +1,6 @@
 import queryString from "query-string";
 import { Env } from "../../../worker";
-import { sign } from "hono/jwt";
+import { sign, verify } from "hono/jwt";
 import { EXPIRATION_DURATION } from "./constant";
 
 type GithubAccessTokenError = {
@@ -17,6 +17,12 @@ type GithubUserInfo = {
   avatar_url: string;
   html_url: string;
   bio: string;
+};
+type JwtPayload = {
+  sub: number;
+  name: string;
+  exp: number;
+  iat: number;
 };
 export class AuthService {
   private env;
@@ -71,7 +77,7 @@ export class AuthService {
     userName: string;
   }) {
     const now = Math.floor(Date.now() / 1000);
-    const payload = {
+    const payload: JwtPayload = {
       sub: userId,
       name: userName,
       exp: now + EXPIRATION_DURATION,
@@ -81,5 +87,14 @@ export class AuthService {
     const accessToken = await sign(payload, secret);
 
     return accessToken;
+  }
+
+  async verifyAuth({ token }: { token: string }) {
+    const payload = (await verify(
+      token,
+      this.env.JWT_SECRET_KEY
+    )) as JwtPayload;
+
+    const id = payload.sub;
   }
 }
