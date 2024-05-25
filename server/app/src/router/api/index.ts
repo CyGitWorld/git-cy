@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { creaetTestRouter } from "./test";
 import { createAuthController } from "./auth/auth.controller";
 import { Env } from "../../worker";
-import { UserService } from "./auth/user.service";
+import { UserService } from "./user/user.service";
 
 export const createApiRouter = ({
   env,

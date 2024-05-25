@@ -5,7 +5,7 @@ import { AuthService } from "./auth.service";
 import { HTTPException } from "hono/http-exception";
 import { Env } from "../../../worker";
 import { jwt } from "hono/jwt";
-import { UserService } from "./user.service";
+import { UserService } from "../user/user.service";
 
 export const createAuthController = ({
   authService,

@@ -14,8 +14,8 @@ import { cors } from "hono/cors";
 import { AuthService } from "./router/api/auth/auth.service";
 import { Kysely } from "kysely";
 import { D1Dialect } from "kysely-d1";
-import { UserService } from "./router/api/auth/user.service";
-import { UserRepository } from "./router/api/auth/user.repository";
+import { UserService } from "./router/api/user/user.service";
+import { UserRepository } from "./router/api/user/user.repository";
 import { DataBase } from "./types/database";
 
 export interface Env {

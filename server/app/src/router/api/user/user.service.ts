@@ -1,6 +1,6 @@
 import { Env } from "../../../worker";
-import { User } from "./user";
 import { UserRepository } from "./user.repository";
+import { User } from "./user.schema";
 
 export class UserService {
   private env;

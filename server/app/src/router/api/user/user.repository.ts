@@ -1,6 +1,6 @@
 import { Kysely } from "kysely";
-import { User } from "./user";
 import { DataBase } from "../../../types/database";
+import { User } from "./user.schema";
 
 export class UserRepository {
   private db;

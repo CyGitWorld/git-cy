@@ -2,7 +2,7 @@ import queryString from "query-string";
 import { Env } from "../../../worker";
 import { sign, verify } from "hono/jwt";
 import { EXPIRATION_DURATION } from "./constant";
-import { UserRepository } from "./user.repository";
+import { UserRepository } from "../user/user.repository";
 
 type GithubAccessTokenError = {
   error: string;
