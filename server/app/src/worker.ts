@@ -12,6 +12,11 @@ import { Hono } from "hono";
 import { createApiRouter } from "./router/api";
 import { cors } from "hono/cors";
 import { AuthService } from "./router/api/auth/auth.service";
+import { Kysely } from "kysely";
+import { D1Dialect } from "kysely-d1";
+import { UserService } from "./router/api/auth/user.service";
+import { UserRepository } from "./router/api/auth/user.repository";
+import { DataBase } from "./types/database";
 
 export interface Env {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -29,6 +34,9 @@ export interface Env {
   // Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
   // MY_QUEUE: Queue;
 
+  // D1
+  DEV_DB: D1Database;
+
   // Environment Variables
   CLIENT_ID: string;
   CLIENT_SECRET: string;
@@ -44,13 +52,23 @@ export default {
   ): Promise<Response> {
     const app = new Hono();
 
+    const db = new Kysely<DataBase>({
+      dialect: new D1Dialect({ database: env.DEV_DB }),
+    });
+
     app.use("*", cors({ origin: "*" }));
 
     app.route(
       "/api",
       createApiRouter({
         env,
-        services: { authService: new AuthService({ env }) },
+        services: {
+          authService: new AuthService({ env }),
+          userService: new UserService({
+            env,
+            userRepository: new UserRepository({ db }),
+          }),
+        },
       })
     );
 

@@ -3,20 +3,23 @@ import { Hono } from "hono";
 import { creaetTestRouter } from "./test";
 import { createAuthController } from "./auth/auth.controller";
 import { Env } from "../../worker";
+import { UserService } from "./auth/user.service";
 
 export const createApiRouter = ({
   env,
   services,
 }: {
   env: Env;
-  services: { authService: AuthService };
+  services: { authService: AuthService; userService: UserService };
 }) => {
-  const api = new Hono()
-    .route("/test", creaetTestRouter())
-    .route(
-      "/auth",
-      createAuthController({ service: services.authService, env })
-    );
+  const api = new Hono().route("/test", creaetTestRouter()).route(
+    "/auth",
+    createAuthController({
+      authService: services.authService,
+      userService: services.userService,
+      env,
+    })
+  );
 
   return api;
 };

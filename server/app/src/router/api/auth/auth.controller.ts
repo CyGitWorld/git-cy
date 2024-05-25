@@ -4,13 +4,16 @@ import { z } from "zod";
 import { AuthService } from "./auth.service";
 import { HTTPException } from "hono/http-exception";
 import { Env } from "../../../worker";
-import { jwt, verify } from "hono/jwt";
+import { jwt } from "hono/jwt";
+import { UserService } from "./user.service";
 
 export const createAuthController = ({
-  service: authService,
+  authService,
+  userService,
   env,
 }: {
-  service: AuthService;
+  authService: AuthService;
+  userService: UserService;
   env: Env;
 }) => {
   return new Hono()
@@ -30,26 +33,42 @@ export const createAuthController = ({
             code,
           });
 
-          const { avatar_url, id, name, html_url } =
-            await authService.getGithbuUserInfo({
-              accessToken: githubAccessToken,
-            });
-
-          const accessToken = await authService.createJwtAccessToken({
-            userId: id,
-            userName: name,
+          const {
+            avatar_url: thumbnailUrl,
+            id: githubUserId,
+            name,
+            html_url: githubUrl,
+            login: githubUserName,
+            bio,
+          } = await authService.getGithbuUserInfo({
+            accessToken: githubAccessToken,
           });
 
-          // TODO: user db 저장하기
+          const user = await userService.getUserOrCreateUser({
+            githubUserId,
+            bio,
+            name,
+            githubUrl,
+            githubUserName,
+            thumbnailUrl,
+          });
+
+          const accessToken = await authService.createJwtAccessToken({
+            userId: user.id,
+            userName: name,
+          });
 
           return ctx.json(
             {
               success: true,
               data: {
-                id,
-                thumbnailUrl: avatar_url,
-                githubUrl: html_url,
-                name: name,
+                id: user.id,
+                githubUserId,
+                thumbnailUrl,
+                githubUrl,
+                name,
+                githubUserName,
+                bio,
                 accessToken: accessToken,
               },
             },
@@ -74,11 +93,15 @@ export const createAuthController = ({
         if (token == null) {
           throw new HTTPException(401, { message: "인증에 실패했어요" });
         }
-        const payload = await verify(token, env.JWT_SECRET_KEY);
+        const payload = await authService.verifyJwt(token);
 
-        const id = payload.sub;
-        // TODO: user db 찾아서, 응답 뱉기
-        return ctx.json({ name: payload.name });
+        const user = await userService.getUserById(payload.sub);
+
+        if (user == null) {
+          throw new HTTPException(401, { message: "유저 정보가 없습니다." });
+        }
+
+        return ctx.json({ success: true, data: user });
       }
     );
 };

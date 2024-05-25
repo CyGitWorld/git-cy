@@ -2,6 +2,7 @@ import queryString from "query-string";
 import { Env } from "../../../worker";
 import { sign, verify } from "hono/jwt";
 import { EXPIRATION_DURATION } from "./constant";
+import { UserRepository } from "./user.repository";
 
 type GithubAccessTokenError = {
   error: string;
@@ -11,12 +12,15 @@ type GithubAccessTokenError = {
 type GithubUserInfoError = {
   message: string;
 };
+
+// https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-a-user
 type GithubUserInfo = {
   id: number;
   name: string;
   avatar_url: string;
   html_url: string;
   bio: string;
+  login: string; // ex. euijinkk
 };
 type JwtPayload = {
   sub: number;
@@ -89,12 +93,12 @@ export class AuthService {
     return accessToken;
   }
 
-  async verifyAuth({ token }: { token: string }) {
+  async verifyJwt(token: string) {
     const payload = (await verify(
       token,
       this.env.JWT_SECRET_KEY
     )) as JwtPayload;
 
-    const id = payload.sub;
+    return payload;
   }
 }
