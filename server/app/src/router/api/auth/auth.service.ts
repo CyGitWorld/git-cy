@@ -1,5 +1,7 @@
 import queryString from "query-string";
 import { Env } from "../../../worker";
+import { sign } from "hono/jwt";
+import { EXPIRATION_DURATION } from "./constant";
 
 type GithubAccessTokenError = {
   error: string;
@@ -8,6 +10,13 @@ type GithubAccessTokenError = {
 };
 type GithubUserInfoError = {
   message: string;
+};
+type GithubUserInfo = {
+  id: number;
+  name: string;
+  avatar_url: string;
+  html_url: string;
+  bio: string;
 };
 export class AuthService {
   private env;
@@ -45,12 +54,32 @@ export class AuthService {
         Accept: "application/json",
         "User-Agent": "CyGitWorld",
       },
-    }).then((r) => r.json())) as { name: string } | GithubUserInfoError;
+    }).then((r) => r.json())) as GithubUserInfo | GithubUserInfoError;
 
     if ("message" in res) {
       throw new Error(res.message);
     }
 
     return res;
+  }
+
+  async createJwtAccessToken({
+    userId,
+    userName,
+  }: {
+    userId: number;
+    userName: string;
+  }) {
+    const now = Math.floor(Date.now() / 1000);
+    const payload = {
+      sub: userId,
+      name: userName,
+      exp: now + EXPIRATION_DURATION,
+      iat: now,
+    };
+    const secret = this.env.JWT_SECRET_KEY;
+    const accessToken = await sign(payload, secret);
+
+    return accessToken;
   }
 }

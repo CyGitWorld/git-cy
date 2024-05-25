@@ -4,6 +4,7 @@ import { z } from "zod";
 import { AuthService } from "./auth.service";
 import { HTTPException } from "hono/http-exception";
 import { Env } from "../../../worker";
+import { sign } from "hono/jwt";
 
 export const createAuthController = ({
   service: authService,
@@ -24,11 +25,33 @@ export const createAuthController = ({
       try {
         const { code } = ctx.req.valid("json");
 
-        const accessToken = await authService.getGithubAccessToken({ code });
+        const githubAccessToken = await authService.getGithubAccessToken({
+          code,
+        });
 
-        const { name } = await authService.getGithbuUserInfo({ accessToken });
+        const { avatar_url, id, name, html_url } =
+          await authService.getGithbuUserInfo({
+            accessToken: githubAccessToken,
+          });
 
-        return ctx.json({ success: true, data: { accessToken, name } }, 200);
+        const accessToken = await authService.createJwtAccessToken({
+          userId: id,
+          userName: name,
+        });
+
+        return ctx.json(
+          {
+            success: true,
+            data: {
+              id,
+              thumbnailUrl: avatar_url,
+              githubUrl: html_url,
+              name: name,
+              accessToken: accessToken,
+            },
+          },
+          200
+        );
       } catch (e) {
         throw new HTTPException(401, {
           message: "Github 로그인에 실패했어요",
