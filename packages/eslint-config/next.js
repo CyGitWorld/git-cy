@@ -38,6 +38,8 @@ module.exports = {
     ],
     "no-empty-pattern": "off",
     "simple-import-sort/imports": "error",
+    "no-unused-vars": "warn",
+    "eol-last": "error",
   },
   overrides: [
     { files: ["*.js?(x)", "*.ts?(x)"] },

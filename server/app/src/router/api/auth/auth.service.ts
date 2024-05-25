@@ -31,7 +31,6 @@ export class AuthService {
       | { access_token: string }
       | GithubAccessTokenError;
     if ("error" in res) {
-      console.log("res", res);
       throw new Error(res.error);
     }
 
