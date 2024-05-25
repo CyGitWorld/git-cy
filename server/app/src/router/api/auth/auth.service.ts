@@ -20,8 +20,7 @@ export class AuthService {
       url: `https://github.com/login/oauth/access_token`,
       query: {
         client_id: this.env.CLIENT_ID,
-        client_secret: this.env.CLIENT_ID,
-        // TODO: redirect_uri 변경
+        client_secret: this.env.CLIENT_SECRET,
         redirect_uri: this.env.OAUTH_REDIRECT_URI,
         code: code,
       },
