@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { AuthService } from "./auth.service";
 import { HTTPException } from "hono/http-exception";
-import { Env } from "../../../worker";
+import { type Env } from "../../../worker-env";
 
 export const createAuthController = ({
   service: authService,

@@ -1,5 +1,5 @@
 import queryString from "query-string";
-import { Env } from "../../../worker";
+import { type Env } from "../../../worker-env";
 
 type GithubAccessTokenError = {
   error: string;

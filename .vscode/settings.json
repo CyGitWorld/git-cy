@@ -17,5 +17,6 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.settings.useSplitJSON": true
+  "workbench.settings.useSplitJSON": true,
+  "typescript.tsserver.experimental.useVsCodeWatcher": false
 }
