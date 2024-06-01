@@ -1,5 +1,5 @@
 {
-	"extends": "@repo/typescript-config/cloudflare-workers.json",
-	"compilerOptions": {},
-	"exclude": ["test"]
+  "extends": "@repo/typescript-config/cloudflare-workers.json",
+  "compilerOptions": {},
+  "exclude": ["test"]
 }

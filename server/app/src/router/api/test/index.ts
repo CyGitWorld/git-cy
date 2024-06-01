@@ -4,19 +4,15 @@ import { Kysely } from "kysely";
 import { D1Dialect } from "kysely-d1";
 import { z } from "zod";
 
-type Bindings = {
-  DEV_DB: D1Database;
-};
-
 type DataBase = {
   Customers: { CustomerId: number; CompanyName: string; ContactName: string };
 };
 
 export const creaetTestRouter = () => {
-  return new Hono<{ Bindings: Bindings }>()
+  return new Hono()
     .get("/v1/hono-test-get", async (c) => {
       const db = new Kysely<DataBase>({
-        dialect: new D1Dialect({ database: c.env.DEV_DB }),
+        dialect: new D1Dialect({ database: c.env!.DEV_DB }),
       });
 
       const result = await db
