@@ -5,6 +5,7 @@ import { createUserController } from "./user/user.controller";
 import { UserService } from "./user/user.service";
 import { type Env } from "../../worker-env";
 import { createGuestbookController } from "./guestbook/guestbook.controller";
+import { createWidgetController } from "./widget/widget.controller";
 
 export const createApiRouter = ({
   env,
@@ -23,7 +24,8 @@ export const createApiRouter = ({
         env,
       })
     )
-    .route("/guestbooks", createGuestbookController({}));
+    .route("/guestbooks", createGuestbookController({ env }))
+    .route("/widgets", createWidgetController({ env }));
 
   return api;
 };

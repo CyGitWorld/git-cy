@@ -2,8 +2,10 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
 import { MOCK_GUEST_BOOK_LIST, createNewMockGuestBook } from "./mock";
+import { jwt } from "hono/jwt";
+import { type Env } from "../../../worker-env";
 
-export const createGuestbookController = ({}) => {
+export const createGuestbookController = ({ env }: { env: Env }) => {
   return new Hono()
     .get(
       "/",
@@ -22,6 +24,9 @@ export const createGuestbookController = ({}) => {
     )
     .post(
       "/",
+      jwt({
+        secret: env.JWT_SECRET_KEY,
+      }),
       zValidator(
         "json",
         z.object({
@@ -39,6 +44,9 @@ export const createGuestbookController = ({}) => {
     )
     .put(
       "/",
+      jwt({
+        secret: env.JWT_SECRET_KEY,
+      }),
       zValidator(
         "json",
         z.object({
@@ -56,6 +64,9 @@ export const createGuestbookController = ({}) => {
     )
     .delete(
       "/",
+      jwt({
+        secret: env.JWT_SECRET_KEY,
+      }),
       zValidator(
         "json",
         z.object({
