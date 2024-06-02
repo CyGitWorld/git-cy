@@ -1,16 +1,26 @@
-import { HonoTest } from "@/test/components/hono-test";
-import { React95Test } from "@/test/components/react95-test";
+import { Container } from "@/components/container";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 
-import { GithubLoginButton } from "./oauth/GithubLoginButton";
-import { titleCss } from "./page.css";
+import { MinihomeButton } from "./components/minihome-button";
+import { mainContainerCss, titleCss } from "./page.css";
 
 export default function Home() {
   return (
-    <main>
-      <h1 className={titleCss}>Hello GitCy World!</h1>
-      <HonoTest />
-      <React95Test />
-      <GithubLoginButton />
-    </main>
+    <>
+      <Header />
+      <main className={mainContainerCss}>
+        <Container>
+          :Image
+          <h1 className={titleCss}>
+            Hi, I'm CyGitWorld.
+            <br />
+            :Description
+          </h1>
+          <MinihomeButton />
+        </Container>
+      </main>
+      <Footer />
+    </>
   );
 }

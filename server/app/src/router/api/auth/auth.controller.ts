@@ -3,9 +3,9 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { AuthService } from "./auth.service";
 import { HTTPException } from "hono/http-exception";
-import { Env } from "../../../worker";
 import { jwt } from "hono/jwt";
 import { UserService } from "../user/user.service";
+import { type Env } from "../../../worker-env";
 
 export const createAuthController = ({
   authService,

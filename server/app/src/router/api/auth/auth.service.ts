@@ -1,8 +1,8 @@
 import queryString from "query-string";
-import { Env } from "../../../worker";
 import { sign, verify } from "hono/jwt";
 import { EXPIRATION_DURATION } from "./constant";
 import { UserRepository } from "../user/user.repository";
+import { type Env } from "../../../worker-env";
 
 type GithubAccessTokenError = {
   error: string;
@@ -50,7 +50,6 @@ export class AuthService {
       | { access_token: string }
       | GithubAccessTokenError;
     if ("error" in res) {
-      console.log("res", res);
       throw new Error(res.error);
     }
 

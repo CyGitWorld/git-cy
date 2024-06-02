@@ -1,4 +1,4 @@
-import { Env } from "../../../worker";
+import { Env } from "../../../worker-env";
 import { UserRepository } from "./user.repository";
 import { User } from "./user.schema";
 
