@@ -1,7 +1,7 @@
 import { AuthService } from "./auth/auth.service";
 import { Hono } from "hono";
 import { creaetTestRouter } from "./test";
-import { createAuthController } from "./auth/auth.controller";
+import { createUserController } from "./user/user.controller";
 import { UserService } from "./user/user.service";
 import { type Env } from "../../worker-env";
 
@@ -13,8 +13,8 @@ export const createApiRouter = ({
   services: { authService: AuthService; userService: UserService };
 }) => {
   const api = new Hono().route("/test", creaetTestRouter()).route(
-    "/auth",
-    createAuthController({
+    "/users",
+    createUserController({
       authService: services.authService,
       userService: services.userService,
       env,
