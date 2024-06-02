@@ -9,9 +9,11 @@ interface Props {}
 
 export const HonoTest: FC<Props> = ({}) => {
   const { data, refetch } = useQuery({
-    queryKey: [getApiPath((api) => api.test.v1["hono-test-get"].$url())],
+    queryKey: [getApiPath((api) => api.test.v1["hono-test-post"].$url())],
     queryFn: () =>
-      requestApiJson((api) => api.test.v1["hono-test-get"].$get({})),
+      requestApiJson((api) =>
+        api.test.v1["hono-test-post"].$post({ json: { name: "김의진" } })
+      ),
   });
 
   return (

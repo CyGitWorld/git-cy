@@ -13,9 +13,12 @@ export interface Env {
   //
   // Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
   // MY_QUEUE: Queue;
+  // D1
+  DEV_DB: D1Database;
 
   // Environment Variables
   CLIENT_ID: string;
   CLIENT_SECRET: string;
   OAUTH_REDIRECT_URI: string;
+  JWT_SECRET_KEY: string;
 }

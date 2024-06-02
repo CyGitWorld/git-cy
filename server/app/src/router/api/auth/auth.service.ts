@@ -1,4 +1,7 @@
 import queryString from "query-string";
+import { sign, verify } from "hono/jwt";
+import { EXPIRATION_DURATION } from "./constant";
+import { UserRepository } from "../user/user.repository";
 import { type Env } from "../../../worker-env";
 
 type GithubAccessTokenError = {
@@ -8,6 +11,22 @@ type GithubAccessTokenError = {
 };
 type GithubUserInfoError = {
   message: string;
+};
+
+// https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-a-user
+type GithubUserInfo = {
+  id: number;
+  name: string;
+  avatar_url: string;
+  html_url: string;
+  bio: string;
+  login: string; // ex. euijinkk
+};
+type JwtPayload = {
+  sub: number;
+  name: string;
+  exp: number;
+  iat: number;
 };
 export class AuthService {
   private env;
@@ -44,12 +63,41 @@ export class AuthService {
         Accept: "application/json",
         "User-Agent": "CyGitWorld",
       },
-    }).then((r) => r.json())) as { name: string } | GithubUserInfoError;
+    }).then((r) => r.json())) as GithubUserInfo | GithubUserInfoError;
 
     if ("message" in res) {
       throw new Error(res.message);
     }
 
     return res;
+  }
+
+  async createJwtAccessToken({
+    userId,
+    userName,
+  }: {
+    userId: number;
+    userName: string;
+  }) {
+    const now = Math.floor(Date.now() / 1000);
+    const payload: JwtPayload = {
+      sub: userId,
+      name: userName,
+      exp: now + EXPIRATION_DURATION,
+      iat: now,
+    };
+    const secret = this.env.JWT_SECRET_KEY;
+    const accessToken = await sign(payload, secret);
+
+    return accessToken;
+  }
+
+  async verifyJwt(token: string) {
+    const payload = (await verify(
+      token,
+      this.env.JWT_SECRET_KEY
+    )) as JwtPayload;
+
+    return payload;
   }
 }

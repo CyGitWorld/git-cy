@@ -12,6 +12,11 @@ import { Hono } from "hono";
 import { createApiRouter } from "./router/api";
 import { cors } from "hono/cors";
 import { AuthService } from "./router/api/auth/auth.service";
+import { Kysely } from "kysely";
+import { D1Dialect } from "kysely-d1";
+import { UserService } from "./router/api/user/user.service";
+import { UserRepository } from "./router/api/user/user.repository";
+import { DataBase } from "./types/database";
 import { Env } from "./worker-env";
 
 export default {
@@ -22,13 +27,23 @@ export default {
   ): Promise<Response> {
     const app = new Hono();
 
+    const db = new Kysely<DataBase>({
+      dialect: new D1Dialect({ database: env.DEV_DB }),
+    });
+
     app.use("*", cors({ origin: "*" }));
 
     app.route(
       "/api",
       createApiRouter({
         env,
-        services: { authService: new AuthService({ env }) },
+        services: {
+          authService: new AuthService({ env }),
+          userService: new UserService({
+            env,
+            userRepository: new UserRepository({ db }),
+          }),
+        },
       })
     );
 
