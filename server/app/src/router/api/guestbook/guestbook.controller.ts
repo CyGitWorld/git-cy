@@ -31,6 +31,7 @@ export const createGuestbookController = ({ env }: { env: Env }) => {
         "json",
         z.object({
           content: z.string(),
+          guestbookId: z.number(),
           parentCommentId: z.nullable(z.number()),
         })
       ),
