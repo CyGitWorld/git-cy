@@ -103,5 +103,24 @@ export const createUserController = ({
 
         return ctx.json({ success: true, data: user });
       }
+    )
+    .get(
+      "/by-github-user-name",
+      zValidator(
+        "param",
+        z.object({
+          githubUserName: z.string(),
+        })
+      ),
+      async (ctx) => {
+        const { githubUserName } = ctx.req.valid("param");
+        const user = await userService.getUserByGithubUserName(githubUserName);
+
+        if (user == null) {
+          throw new HTTPException(401, { message: "유저 정보가 없습니다." });
+        }
+
+        return ctx.json({ success: true, data: user });
+      }
     );
 };
