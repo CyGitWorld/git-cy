@@ -8,7 +8,7 @@ import { type Env } from "../../../worker-env";
 export const createGuestbookController = ({ env }: { env: Env }) => {
   return new Hono()
     .get(
-      "/",
+      "/:githubUserName",
       zValidator(
         "param",
         z.object({

@@ -105,7 +105,7 @@ export const createUserController = ({
       }
     )
     .get(
-      "/by-github-user-name",
+      "/by-github-user-name/:githubUserName",
       zValidator(
         "param",
         z.object({
