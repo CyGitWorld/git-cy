@@ -1,4 +1,4 @@
-import { Kysely } from "kysely";
+import { Kysely, Transaction } from "kysely";
 import { DataBase } from "../../../types/database";
 import { addTimeStamp } from "../../../utils/addTimeStamp";
 import { Minihome } from "./minihome.schema";
@@ -17,8 +17,12 @@ export class MinihomeRepository {
       .executeTakeFirst();
   }
 
-  async createMinihome(userId: number) {
-    return await this.db
+  async createMinihome(
+    userId: number,
+    { trx }: { trx?: Transaction<DataBase> } = {}
+  ) {
+    const db = trx ?? this.db;
+    return await db
       .insertInto("Minihomes")
       .values(addTimeStamp({ userId }) as Minihome)
       .returningAll()

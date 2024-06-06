@@ -1,4 +1,4 @@
-import { Kysely } from "kysely";
+import { Kysely, Transaction } from "kysely";
 import { DataBase } from "../../../types/database";
 import { addTimeStamp } from "../../../utils/addTimeStamp";
 import { Guestbook } from "./guestbook.schema";
@@ -17,8 +17,12 @@ export class GuestbookRepository {
       .executeTakeFirst();
   }
 
-  async createGuestbook(minihomeId: number) {
-    return await this.db
+  async createGuestbook(
+    minihomeId: number,
+    { trx }: { trx?: Transaction<DataBase> } = {}
+  ) {
+    const db = trx ?? this.db;
+    return await db
       .insertInto("Guestbooks")
       .values(addTimeStamp({ minihomeId }) as Guestbook)
       .returningAll()

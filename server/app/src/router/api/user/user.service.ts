@@ -32,19 +32,24 @@ export class UserService {
     return res;
   }
 
-  async createUser(props: Omit<User, "id" | "createdAt" | "updatedAt">) {
-    const res = await this.userRepository.createUser(props);
+  async createUserAndMinihomeAndGuestbook(
+    props: Omit<User, "id" | "createdAt" | "updatedAt">
+  ) {
+    const res =
+      await this.userRepository.createUserAndMinihomeAndGuestbook(props);
     return res;
   }
 
-  async getUserOrCreateUser(props: Omit<User, "id">) {
+  async getUserOrCreateUser(
+    props: Omit<User, "id" | "createdAt" | "updatedAt">
+  ) {
     const { bio, githubUrl, githubUserId, githubUserName, name, thumbnailUrl } =
       props;
 
     let user: User;
     const res = await this.getUserByGithubUserId(githubUserId);
     if (res == null) {
-      user = await this.createUser({
+      user = await this.createUserAndMinihomeAndGuestbook({
         githubUserId,
         bio,
         name,
