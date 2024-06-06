@@ -4,7 +4,7 @@ import { UserService } from "../user/user.service";
 import { CommentRepository } from "./comment.repository";
 import { Comment } from "./comment.schema";
 
-export type AllCommentDTO = {
+type AllCommentDTO = {
   guestbookId: number;
   comments: Array<CommentDTO & { replies: CommentDTO[] }>;
 };
