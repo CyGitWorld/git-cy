@@ -1,6 +1,7 @@
 import { Kysely } from "kysely";
 import { DataBase } from "../../../types/database";
 import { User } from "./user.schema";
+import { addTimeStamp } from "../../../utils/addTimeStamp";
 
 export class UserRepository {
   private db;
@@ -31,10 +32,10 @@ export class UserRepository {
       .executeTakeFirst();
   }
 
-  async createUser(props: Omit<User, "id">) {
+  async createUser(props: Omit<User, "id" | "createdAt" | "updatedAt">) {
     return await this.db
       .insertInto("Users")
-      .values(props as User) // FIXME
+      .values(addTimeStamp(props) as User)
       .returningAll()
       .executeTakeFirstOrThrow();
   }
