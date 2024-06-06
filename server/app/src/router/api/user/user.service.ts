@@ -37,6 +37,22 @@ export class UserService {
     return res;
   }
 
+  async getGuestbookByGithubUserName(githubUserName: string) {
+    const user = await this.getUserByGithubUserName(githubUserName);
+    if (user == null) {
+      return null;
+    }
+    const minihome = await this.minihomeService.getMinihome(user.id);
+    if (minihome == null) {
+      return null;
+    }
+    const guestbook = await this.guestbookService.getGuestbook(minihome.id);
+    if (guestbook == null) {
+      return null;
+    }
+    return guestbook;
+  }
+
   async getUserById(id: number) {
     const res = await this.userRepository.getUserById(id);
     return res;
