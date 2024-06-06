@@ -18,6 +18,10 @@ import { UserService } from "./router/api/user/user.service";
 import { UserRepository } from "./router/api/user/user.repository";
 import { DataBase } from "./types/database";
 import { Env } from "./worker-env";
+import { GuestbookService } from "./router/api/guestbook/guestbook.service";
+import { GuestbookRepository } from "./router/api/guestbook/guestbook.repository";
+import { MinihomeService } from "./router/api/minihome/minihome.service";
+import { MinihomeRepository } from "./router/api/minihome/minihome.repository";
 
 export default {
   async fetch(
@@ -41,7 +45,17 @@ export default {
           authService: new AuthService({ env }),
           userService: new UserService({
             env,
-            userRepository: new UserRepository({ db }),
+            userRepository: new UserRepository({
+              db,
+            }),
+            guestbookService: new GuestbookService({
+              env,
+              gestbookRepository: new GuestbookRepository({ db }),
+            }),
+            minihomeService: new MinihomeService({
+              env,
+              minihomeRepository: new MinihomeRepository({ db }),
+            }),
           }),
         },
       })

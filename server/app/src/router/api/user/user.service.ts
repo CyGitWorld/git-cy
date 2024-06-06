@@ -1,19 +1,29 @@
+import { GuestbookService } from "./../guestbook/guestbook.service";
 import { Env } from "../../../worker-env";
 import { UserRepository } from "./user.repository";
 import { User } from "./user.schema";
+import { MinihomeService } from "../minihome/minihome.service";
 
 export class UserService {
   private env;
   private userRepository;
+  private minihomeService;
+  private guestbookService;
   constructor({
     env,
     userRepository,
+    minihomeService,
+    guestbookService,
   }: {
     env: Env;
     userRepository: UserRepository;
+    minihomeService: MinihomeService;
+    guestbookService: GuestbookService;
   }) {
     this.env = env;
     this.userRepository = userRepository;
+    this.minihomeService = minihomeService;
+    this.guestbookService = guestbookService;
   }
 
   async getUserByGithubUserId(githubUserId: number) {
@@ -32,12 +42,20 @@ export class UserService {
     return res;
   }
 
+  async createUser(props: Omit<User, "id" | "createdAt" | "updatedAt">) {
+    const res = await this.userRepository.createUser(props);
+    return res;
+  }
+
   async createUserAndMinihomeAndGuestbook(
     props: Omit<User, "id" | "createdAt" | "updatedAt">
   ) {
-    const res =
-      await this.userRepository.createUserAndMinihomeAndGuestbook(props);
-    return res;
+    const createdUser = await this.createUser(props);
+    const createdMinihome = await this.minihomeService.createMinihome(
+      createdUser.id
+    );
+    await this.guestbookService.createGuestbook(createdMinihome.id);
+    return createdUser;
   }
 
   async getUserOrCreateUser(

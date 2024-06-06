@@ -6,6 +6,10 @@
 
 `yarn wrangler d1 execute dev-db --remote --file=./sql/users.schema.sql`
 
+### delete all columns
+
+`yarn wrangler d1 execute dev-db --local --command="DELETE FROM Users"`
+
 ### delete db
 
 `yarn wrangler d1 delete dev-db --local`
