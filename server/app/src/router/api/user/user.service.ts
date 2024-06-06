@@ -21,6 +21,12 @@ export class UserService {
     return res;
   }
 
+  async getUserByGithubUserName(githubUserName: string) {
+    const res =
+      await this.userRepository.getUserByGithubUserName(githubUserName);
+    return res;
+  }
+
   async getUserById(id: number) {
     const res = await this.userRepository.getUserById(id);
     return res;

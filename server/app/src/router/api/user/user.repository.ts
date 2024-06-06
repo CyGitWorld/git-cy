@@ -15,6 +15,14 @@ export class UserRepository {
       .executeTakeFirst();
   }
 
+  async getUserByGithubUserName(githubUserName: User["githubUserName"]) {
+    return await this.db
+      .selectFrom("Users")
+      .selectAll()
+      .where("Users.githubUserName", "=", githubUserName)
+      .executeTakeFirst();
+  }
+
   async getUserById(id: User["id"]) {
     return await this.db
       .selectFrom("Users")

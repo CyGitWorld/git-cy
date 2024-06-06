@@ -1,13 +1,13 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
-import { AuthService } from "./auth.service";
+import { AuthService } from "../auth/auth.service";
 import { HTTPException } from "hono/http-exception";
 import { jwt } from "hono/jwt";
-import { UserService } from "../user/user.service";
+import { UserService } from "./user.service";
 import { type Env } from "../../../worker-env";
 
-export const createAuthController = ({
+export const createUserController = ({
   authService,
   userService,
   env,
@@ -96,6 +96,25 @@ export const createAuthController = ({
         const payload = await authService.verifyJwt(token);
 
         const user = await userService.getUserById(payload.sub);
+
+        if (user == null) {
+          throw new HTTPException(401, { message: "유저 정보가 없습니다." });
+        }
+
+        return ctx.json({ success: true, data: user });
+      }
+    )
+    .get(
+      "/by-github-user-name/:githubUserName",
+      zValidator(
+        "param",
+        z.object({
+          githubUserName: z.string(),
+        })
+      ),
+      async (ctx) => {
+        const { githubUserName } = ctx.req.valid("param");
+        const user = await userService.getUserByGithubUserName(githubUserName);
 
         if (user == null) {
           throw new HTTPException(401, { message: "유저 정보가 없습니다." });

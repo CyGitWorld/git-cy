@@ -1,9 +1,11 @@
 import { AuthService } from "./auth/auth.service";
 import { Hono } from "hono";
 import { creaetTestRouter } from "./test";
-import { createAuthController } from "./auth/auth.controller";
+import { createUserController } from "./user/user.controller";
 import { UserService } from "./user/user.service";
 import { type Env } from "../../worker-env";
+import { createGuestbookController } from "./guestbook/guestbook.controller";
+import { createWidgetController } from "./widget/widget.controller";
 
 export const createApiRouter = ({
   env,
@@ -12,14 +14,18 @@ export const createApiRouter = ({
   env: Env;
   services: { authService: AuthService; userService: UserService };
 }) => {
-  const api = new Hono().route("/test", creaetTestRouter()).route(
-    "/auth",
-    createAuthController({
-      authService: services.authService,
-      userService: services.userService,
-      env,
-    })
-  );
+  const api = new Hono()
+    .route("/test", creaetTestRouter())
+    .route(
+      "/users",
+      createUserController({
+        authService: services.authService,
+        userService: services.userService,
+        env,
+      })
+    )
+    .route("/guestbooks", createGuestbookController({ env }))
+    .route("/widgets", createWidgetController({ env }));
 
   return api;
 };
