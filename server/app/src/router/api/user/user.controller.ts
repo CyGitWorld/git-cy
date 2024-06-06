@@ -6,6 +6,7 @@ import { HTTPException } from "hono/http-exception";
 import { jwt } from "hono/jwt";
 import { UserService } from "./user.service";
 import { type Env } from "../../../worker-env";
+import { User } from "./user.schema";
 
 export const createUserController = ({
   authService,
@@ -62,13 +63,7 @@ export const createUserController = ({
             {
               success: true,
               data: {
-                id: user.id,
-                githubUserId,
-                thumbnailUrl,
-                githubUrl,
-                name,
-                githubUserName,
-                bio,
+                ...user,
                 accessToken: accessToken,
               },
             },

@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS Users (
+DROP TABLE IF EXISTS Users;
+
+CREATE TABLE Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     githubUserId KEY,
     thumbnailUrl TEXT,
@@ -7,5 +9,5 @@ CREATE TABLE IF NOT EXISTS Users (
     bio TEXT,
     githubUrl TEXT,
     createdAt TEXT,
-    updatedAt TEXT,
+    updatedAt TEXT
 );
