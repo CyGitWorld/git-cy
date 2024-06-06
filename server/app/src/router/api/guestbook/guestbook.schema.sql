@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS Guestbooks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,    
-    minihomeId INTEGER UNIQUE, -- 1:1 relationship with Minihomes
+    minihomeId INTEGER UNIQUE,
     createdAt TEXT,
     updatedAt TEXT,
     FOREIGN KEY (minihomeId) REFERENCES Minihomes(id)
