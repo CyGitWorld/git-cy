@@ -27,11 +27,7 @@ export class GuestbookService {
     return res;
   }
 
-  async getGuestbookOrCreate(
-    props: Omit<Guestbook, "id" | "createdAt" | "updatedAt">
-  ) {
-    const { minihomeId } = props;
-
+  async getGuestbookOrCreate(minihomeId: number) {
     let guestbook: Guestbook;
     const res = await this.getGuestbook(minihomeId);
     if (res == null) {

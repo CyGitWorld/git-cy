@@ -26,11 +26,7 @@ export class MinihomeService {
     return res;
   }
 
-  async getMinihomeOrCreate(
-    props: Omit<Minihome, "id" | "createdAt" | "updatedAt">
-  ) {
-    const { userId } = props;
-
+  async getMinihomeOrCreate(userId: number) {
     let minihome: Minihome;
     const res = await this.getMinihome(userId);
     if (res == null) {

@@ -66,11 +66,11 @@ export class UserService {
   async createUserAndMinihomeAndGuestbook(
     props: Omit<User, "id" | "createdAt" | "updatedAt">
   ) {
-    const createdUser = await this.createUser(props);
-    const createdMinihome = await this.minihomeService.createMinihome(
+    const createdUser = await this.getUserOrCreateUser(props);
+    const createdMinihome = await this.minihomeService.getMinihomeOrCreate(
       createdUser.id
     );
-    await this.guestbookService.createGuestbook(createdMinihome.id);
+    await this.guestbookService.getGuestbookOrCreate(createdMinihome.id);
     return createdUser;
   }
 
