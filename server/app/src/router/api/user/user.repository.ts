@@ -1,4 +1,4 @@
-import { Kysely, Transaction } from "kysely";
+import { Kysely } from "kysely";
 import { DataBase } from "../../../types/database";
 import { User } from "./user.schema";
 import { addTimeStamp } from "../../../utils/addTimeStamp";
@@ -34,12 +34,8 @@ export class UserRepository {
       .executeTakeFirst();
   }
 
-  async createUser(
-    props: Omit<User, "id" | "createdAt" | "updatedAt">,
-    { trx }: { trx?: Transaction<DataBase> } = {}
-  ) {
-    const db = trx ?? this.db;
-    return await db
+  async createUser(props: Omit<User, "id" | "createdAt" | "updatedAt">) {
+    return await this.db
       .insertInto("Users")
       .values(addTimeStamp(props) as User)
       .returningAll()
