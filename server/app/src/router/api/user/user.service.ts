@@ -32,7 +32,7 @@ export class UserService {
     return res;
   }
 
-  async createUser(props: Omit<User, "id">) {
+  async createUser(props: Omit<User, "id" | "createdAt" | "updatedAt">) {
     const res = await this.userRepository.createUser(props);
     return res;
   }
