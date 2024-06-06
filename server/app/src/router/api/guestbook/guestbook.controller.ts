@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
-import { MOCK_GUEST_BOOK_LIST, createNewMockGuestBook } from "./mock";
+import { createNewMockGuestBook } from "./mock";
 import { jwt } from "hono/jwt";
 import { type Env } from "../../../worker-env";
 import { CommentService } from "../comment/comment.service";
@@ -50,7 +50,7 @@ export const createGuestbookController = ({
         z.object({
           content: z.string(),
           guestbookId: z.number(),
-          parentCommentId: z.nullable(z.number()),
+          parentId: z.number().optional().nullable(),
         })
       ),
       jwt({
@@ -58,13 +58,13 @@ export const createGuestbookController = ({
       }),
       getUserJwtMiddleware({ userService }),
       async (ctx) => {
-        const { content, guestbookId, parentCommentId } = ctx.req.valid("json");
+        const { content, guestbookId, parentId } = ctx.req.valid("json");
         const user = ctx.get("user");
 
         const comment = await commentService.createComment({
           content,
           guestbookId,
-          parentId: parentCommentId,
+          parentId: parentId ?? null,
           authorId: user.id,
         });
 

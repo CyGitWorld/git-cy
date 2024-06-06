@@ -1,7 +1,21 @@
 import { Env } from "../../../worker-env";
+import { User } from "../user/user.schema";
 import { UserService } from "../user/user.service";
 import { CommentRepository } from "./comment.repository";
 import { Comment } from "./comment.schema";
+
+export type AllCommentDTO = {
+  guestbookId: number;
+  comments: Array<CommentDTO & { replies: CommentDTO[] }>;
+};
+
+interface CommentDTO {
+  id: number;
+  content: string;
+  author: User;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export class CommentService {
   private env;
@@ -21,7 +35,9 @@ export class CommentService {
     this.userService = userService;
   }
 
-  async getAllGuestbookCommentsByGithubUserName(githubUserName: string) {
+  async getAllGuestbookCommentsByGithubUserName(
+    githubUserName: string
+  ): Promise<AllCommentDTO> {
     const guestbook =
       await this.userService.getGuestbookByGithubUserName(githubUserName);
     if (guestbook == null) {
@@ -30,7 +46,29 @@ export class CommentService {
     const comments = await this.commentRepository.getAllCommentsByGuestbookId(
       guestbook.id
     );
-    return { comments, guestbookId: guestbook.id };
+    const commentMap = new Map<
+      number,
+      CommentDTO & { replies: CommentDTO[] }
+    >();
+    comments.forEach((comment) => {
+      const { parentId, ...commentData } = comment;
+
+      if (!parentId) {
+        // parentId가 없는 경우 (최상위 댓글)
+        commentMap.set(commentData.id, { ...commentData, replies: [] });
+      } else {
+        // 대댓글인 경우
+        const parentComment = commentMap.get(parentId);
+        if (parentComment == null) {
+          return;
+        }
+        parentComment.replies.push(commentData);
+      }
+    });
+
+    const result = Array.from(commentMap.values());
+
+    return { comments: result, guestbookId: guestbook.id };
   }
 
   async createComment(props: {

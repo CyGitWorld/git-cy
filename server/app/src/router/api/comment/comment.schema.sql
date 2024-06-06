@@ -1,11 +1,13 @@
-CREATE TABLE IF NOT EXISTS Comments (
+DROP TABLE IF EXISTS Comments;
+
+CREATE TABLE Comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,    
     guestbookId INTEGER,
-    userId INTEGER,
+    authorId INTEGER,
     content TEXT,
     parentId INTEGER NULL,
     createdAt TEXT,
     updatedAt TEXT,
     FOREIGN KEY (guestbookId) REFERENCES Guestbooks(id)
-    FOREIGN KEY (userId) REFERENCES Users(id)
+    FOREIGN KEY (authorId) REFERENCES Users(id)
 );
