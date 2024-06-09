@@ -28,19 +28,18 @@ export const createGuestbookController = ({
         })
       ),
       async (ctx) => {
-        try {
-          const { githubUserName } = ctx.req.valid("param");
-          const { comments, guestbookId } =
-            await commentService.getAllGuestbookCommentsByGithubUserName(
-              githubUserName
-            );
-          return ctx.json({
-            success: true,
-            data: { comments, guestbookId },
-          });
-        } catch (e) {
+        const { githubUserName } = ctx.req.valid("param");
+        const { result, comments, guestbookId } =
+          await commentService.getAllGuestbookCommentsByGithubUserName(
+            githubUserName
+          );
+        if (result === "notFound") {
           throw new HTTPException(404, { message: "Guestbook not found" });
         }
+        return ctx.json({
+          success: true,
+          data: { comments, guestbookId },
+        });
       }
     )
     .post(

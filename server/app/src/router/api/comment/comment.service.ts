@@ -37,13 +37,11 @@ export class CommentService {
     this.userService = userService;
   }
 
-  async getAllGuestbookCommentsByGithubUserName(
-    githubUserName: string
-  ): Promise<AllCommentDTO> {
+  async getAllGuestbookCommentsByGithubUserName(githubUserName: string) {
     const guestbook =
       await this.userService.getGuestbookByGithubUserName(githubUserName);
     if (guestbook == null) {
-      throw new Error("Guestbook not found");
+      return { result: "notFound" as const };
     }
     const comments = await this.commentRepository.getAllCommentsByGuestbookId(
       guestbook.id
@@ -67,7 +65,11 @@ export class CommentService {
 
     const result = Array.from(commentMap.values());
 
-    return { comments: result, guestbookId: guestbook.id };
+    return {
+      result: "success" as const,
+      comments: result,
+      guestbookId: guestbook.id,
+    };
   }
 
   async createComment(props: {
