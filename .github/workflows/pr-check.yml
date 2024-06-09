@@ -1,4 +1,4 @@
-name: Deploy Server
+name: PR Check
 
 on:
   pull_request:
