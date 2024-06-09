@@ -36,4 +36,4 @@ jobs:
 
       - name: Check Server
         working-directory: server/app
-        run: yarn tsc --noEmit
+        run: yarn tsc --noEmit && yarn lint
