@@ -6,8 +6,10 @@ import { Comment } from "./comment.schema";
 
 type AllCommentDTO = {
   guestbookId: number;
-  comments: Array<CommentDTO & { replies: CommentDTO[] }>;
+  comments: Array<CommentWithRepies>;
 };
+
+type CommentWithRepies = CommentDTO & { replies: CommentDTO[] };
 
 interface CommentDTO {
   id: number;
@@ -46,10 +48,7 @@ export class CommentService {
     const comments = await this.commentRepository.getAllCommentsByGuestbookId(
       guestbook.id
     );
-    const commentMap = new Map<
-      number,
-      CommentDTO & { replies: CommentDTO[] }
-    >();
+    const commentMap = new Map<number, CommentWithRepies>();
     comments.forEach((comment) => {
       const { parentId, ...commentData } = comment;
 
