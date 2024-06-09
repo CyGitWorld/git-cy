@@ -1,11 +1,12 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import { z } from "zod";
-import { AuthService } from "../auth/auth.service";
 import { HTTPException } from "hono/http-exception";
 import { jwt } from "hono/jwt";
-import { UserService } from "./user.service";
+import { z } from "zod";
+
 import { type Env } from "../../../worker-env";
+import { AuthService } from "../auth/auth.service";
+import { UserService } from "./user.service";
 
 export const createUserController = ({
   authService,

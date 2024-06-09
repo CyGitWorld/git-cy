@@ -1,4 +1,5 @@
 import { Kysely } from "kysely";
+
 import { DataBase } from "../../../types/database";
 import { User } from "./user.schema";
 
