@@ -6,6 +6,7 @@
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
     "start": "wrangler dev",
+    "db:local": "wrangler d1 execute dev-db --local --file=./sql/schema.sql",
     "test": "vitest"
   },
   "devDependencies": {

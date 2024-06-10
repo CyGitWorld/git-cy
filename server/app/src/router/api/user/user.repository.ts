@@ -1,12 +1,15 @@
 import { Kysely } from "kysely";
 import { DataBase } from "../../../types/database";
 import { User } from "./user.schema";
+import { addTimeStamp } from "../../../utils/addTimeStamp";
 
 export class UserRepository {
   private db;
+
   constructor({ db }: { db: Kysely<DataBase> }) {
     this.db = db;
   }
+
   async getUserByGithubUserId(githubUserId: User["githubUserId"]) {
     return await this.db
       .selectFrom("Users")
@@ -31,10 +34,10 @@ export class UserRepository {
       .executeTakeFirst();
   }
 
-  async createUser(props: Omit<User, "id">) {
+  async createUser(props: Omit<User, "id" | "createdAt" | "updatedAt">) {
     return await this.db
       .insertInto("Users")
-      .values(props as User) // FIXME
+      .values(addTimeStamp(props) as User)
       .returningAll()
       .executeTakeFirstOrThrow();
   }
