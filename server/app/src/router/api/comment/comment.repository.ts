@@ -73,6 +73,7 @@ export class CommentRepository {
         isDeleted: 1,
       })
       .where("Comments.id", "=", Number(props.id))
+      .returningAll()
       .executeTakeFirst();
   }
 }
