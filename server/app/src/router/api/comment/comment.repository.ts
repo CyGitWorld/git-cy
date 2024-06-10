@@ -14,6 +14,7 @@ export class CommentRepository {
     return await this.db
       .selectFrom("Comments")
       .where("Comments.guestbookId", "=", guestbookId)
+      .where("Comments.isDeleted", "=", 0)
       .innerJoin("Users", "Users.id", "Comments.authorId")
       .select([
         "Comments.id",
@@ -49,5 +50,29 @@ export class CommentRepository {
       .values(addTimeStamp(props) as Comment)
       .returningAll()
       .executeTakeFirstOrThrow();
+  }
+
+  async updateComment(props: {
+    content: Comment["content"];
+    id: Comment["id"];
+  }) {
+    return await this.db
+      .updateTable("Comments")
+      .set({
+        content: props.content,
+      })
+      .where("Comments.id", "=", props.id)
+      .returningAll()
+      .executeTakeFirst();
+  }
+
+  async deleteComment(props: { id: Comment["id"] }) {
+    return await this.db
+      .updateTable("Comments")
+      .set({
+        isDeleted: 1,
+      })
+      .where("Comments.id", "=", Number(props.id))
+      .executeTakeFirst();
   }
 }

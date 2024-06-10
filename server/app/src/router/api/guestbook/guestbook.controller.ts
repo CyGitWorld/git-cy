@@ -82,14 +82,20 @@ export const createGuestbookController = ({
         "json",
         z.object({
           content: z.string(),
-          commentId: z.number(),
+          id: z.number(),
         })
       ),
       async (ctx) => {
-        const { content } = ctx.req.valid("json");
+        const { content, id } = ctx.req.valid("json");
+
+        const comment = await commentService.updateComment({
+          content,
+          id,
+        });
+
         return ctx.json({
           success: true,
-          data: createNewMockGuestBook({ content }),
+          data: comment,
         });
       }
     )
@@ -101,14 +107,17 @@ export const createGuestbookController = ({
       zValidator(
         "json",
         z.object({
-          commentId: z.number(),
+          id: z.number(),
         })
       ),
       async (ctx) => {
-        ctx.req.valid("json");
+        const { id } = ctx.req.valid("json");
+        const { isSuccess } = await commentService.deleteComment({
+          id,
+        });
+
         return ctx.json({
-          success: true,
-          data: true,
+          success: isSuccess,
         });
       }
     );

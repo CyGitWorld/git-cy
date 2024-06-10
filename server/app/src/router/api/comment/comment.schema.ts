@@ -6,4 +6,5 @@ export interface Comment {
   parentId: number | null;
   createdAt: string;
   updatedAt: string;
+  isDeleted: number;
 }
