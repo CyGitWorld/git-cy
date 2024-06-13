@@ -1,8 +1,8 @@
-import { GuestbookService } from "./../guestbook/guestbook.service";
 import { Env } from "../../../worker-env";
+import { MinihomeService } from "../minihome/minihome.service";
+import { GuestbookService } from "./../guestbook/guestbook.service";
 import { UserRepository } from "./user.repository";
 import { User } from "./user.schema";
-import { MinihomeService } from "../minihome/minihome.service";
 
 export class UserService {
   private env;

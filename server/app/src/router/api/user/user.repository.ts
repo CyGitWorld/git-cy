@@ -1,7 +1,8 @@
 import { Kysely } from "kysely";
+
 import { DataBase } from "../../../types/database";
-import { User } from "./user.schema";
 import { addTimeStamp } from "../../../utils/addTimeStamp";
+import { User } from "./user.schema";
 
 export class UserRepository {
   private db;

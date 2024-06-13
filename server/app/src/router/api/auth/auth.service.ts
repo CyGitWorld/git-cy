@@ -1,8 +1,8 @@
-import queryString from "query-string";
 import { sign, verify } from "hono/jwt";
-import { EXPIRATION_DURATION } from "./constant";
-import { UserRepository } from "../user/user.repository";
+import queryString from "query-string";
+
 import { type Env } from "../../../worker-env";
+import { EXPIRATION_DURATION } from "./constant";
 import { JwtPayload } from "./types";
 
 type GithubAccessTokenError = {
