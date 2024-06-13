@@ -2,7 +2,7 @@ import { sign, verify } from "hono/jwt";
 import queryString from "query-string";
 
 import { type Env } from "../../../worker-env";
-import { UserRepository } from "../user/user.repository";
+import { JwtPayload } from "./types";
 import { EXPIRATION_DURATION } from "./constant";
 
 type GithubAccessTokenError = {
@@ -23,12 +23,7 @@ type GithubUserInfo = {
   bio: string;
   login: string; // ex. euijinkk
 };
-type JwtPayload = {
-  sub: number;
-  name: string;
-  exp: number;
-  iat: number;
-};
+
 export class AuthService {
   private env;
   constructor({ env }: { env: Env }) {

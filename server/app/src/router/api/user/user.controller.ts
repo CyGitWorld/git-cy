@@ -5,6 +5,7 @@ import { jwt } from "hono/jwt";
 import { z } from "zod";
 
 import { type Env } from "../../../worker-env";
+import { getUserJwtMiddleware } from "../../../middlewares/getUserJwtMiddleware";
 import { AuthService } from "../auth/auth.service";
 import { UserService } from "./user.service";
 
@@ -63,13 +64,7 @@ export const createUserController = ({
             {
               success: true,
               data: {
-                id: user.id,
-                githubUserId,
-                thumbnailUrl,
-                githubUrl,
-                name,
-                githubUserName,
-                bio,
+                ...user,
                 accessToken: accessToken,
               },
             },
@@ -88,19 +83,9 @@ export const createUserController = ({
       jwt({
         secret: env.JWT_SECRET_KEY,
       }),
+      getUserJwtMiddleware({ userService }),
       async (ctx) => {
-        const credentials = ctx.req.raw.headers.get("Authorization");
-        const token = credentials?.split(/\s+/)[1];
-        if (token == null) {
-          throw new HTTPException(401, { message: "인증에 실패했어요" });
-        }
-        const payload = await authService.verifyJwt(token);
-
-        const user = await userService.getUserById(payload.sub);
-
-        if (user == null) {
-          throw new HTTPException(401, { message: "유저 정보가 없습니다." });
-        }
+        const user = ctx.get("user");
 
         return ctx.json({ success: true, data: user });
       }

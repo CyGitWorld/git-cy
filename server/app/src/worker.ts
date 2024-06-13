@@ -20,6 +20,12 @@ import { UserRepository } from "./router/api/user/user.repository";
 import { UserService } from "./router/api/user/user.service";
 import { DataBase } from "./types/database";
 import { Env } from "./worker-env";
+import { GuestbookService } from "./router/api/guestbook/guestbook.service";
+import { GuestbookRepository } from "./router/api/guestbook/guestbook.repository";
+import { MinihomeService } from "./router/api/minihome/minihome.service";
+import { MinihomeRepository } from "./router/api/minihome/minihome.repository";
+import { CommentService } from "./router/api/comment/comment.service";
+import { CommentRepository } from "./router/api/comment/comment.repository";
 
 export default {
   async fetch(
@@ -35,16 +41,35 @@ export default {
 
     app.use("*", cors({ origin: "*" }));
 
+    const userService = new UserService({
+      env,
+      userRepository: new UserRepository({
+        db,
+      }),
+      minihomeService: new MinihomeService({
+        env,
+        minihomeRepository: new MinihomeRepository({ db }),
+      }),
+      guestbookService: new GuestbookService({
+        env,
+        gestbookRepository: new GuestbookRepository({ db }),
+      }),
+    });
+    const authService = new AuthService({ env });
+    const commentService = new CommentService({
+      env,
+      commentRepository: new CommentRepository({ db }),
+      userService,
+    });
+
     app.route(
       "/api",
       createApiRouter({
         env,
         services: {
-          authService: new AuthService({ env }),
-          userService: new UserService({
-            env,
-            userRepository: new UserRepository({ db }),
-          }),
+          authService,
+          userService,
+          commentService,
         },
       })
     );

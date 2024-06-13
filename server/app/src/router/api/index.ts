@@ -7,13 +7,18 @@ import { creaetTestRouter } from "./test";
 import { createUserController } from "./user/user.controller";
 import { UserService } from "./user/user.service";
 import { createWidgetController } from "./widget/widget.controller";
+import { CommentService } from "./comment/comment.service";
 
 export const createApiRouter = ({
   env,
   services,
 }: {
   env: Env;
-  services: { authService: AuthService; userService: UserService };
+  services: {
+    authService: AuthService;
+    userService: UserService;
+    commentService: CommentService;
+  };
 }) => {
   const api = new Hono()
     .route("/test", creaetTestRouter())
@@ -25,7 +30,14 @@ export const createApiRouter = ({
         env,
       })
     )
-    .route("/guestbooks", createGuestbookController({ env }))
+    .route(
+      "/guestbooks",
+      createGuestbookController({
+        env,
+        commentService: services.commentService,
+        userService: services.userService,
+      })
+    )
     .route("/widgets", createWidgetController({ env }));
 
   return api;

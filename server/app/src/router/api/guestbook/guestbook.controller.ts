@@ -1,12 +1,24 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import { jwt } from "hono/jwt";
 import { z } from "zod";
+import { createNewMockGuestBook } from "./mock";
+import { jwt } from "hono/jwt";
 
 import { type Env } from "../../../worker-env";
-import { createNewMockGuestBook,MOCK_GUEST_BOOK_LIST } from "./mock";
+import { CommentService } from "../comment/comment.service";
+import { HTTPException } from "hono/http-exception";
+import { getUserJwtMiddleware } from "../../../middlewares/getUserJwtMiddleware";
+import { UserService } from "../user/user.service";
 
-export const createGuestbookController = ({ env }: { env: Env }) => {
+export const createGuestbookController = ({
+  env,
+  commentService,
+  userService,
+}: {
+  env: Env;
+  commentService: CommentService;
+  userService: UserService;
+}) => {
   return new Hono()
     .get(
       "/:githubUserName",
@@ -17,30 +29,48 @@ export const createGuestbookController = ({ env }: { env: Env }) => {
         })
       ),
       async (ctx) => {
+        const { githubUserName } = ctx.req.valid("param");
+        const { result, comments, guestbookId } =
+          await commentService.getAllGuestbookCommentsByGithubUserName(
+            githubUserName
+          );
+        if (result === "notFound") {
+          throw new HTTPException(404, { message: "Guestbook not found" });
+        }
         return ctx.json({
           success: true,
-          data: MOCK_GUEST_BOOK_LIST,
+          data: { comments, guestbookId },
         });
       }
     )
     .post(
       "/",
-      jwt({
-        secret: env.JWT_SECRET_KEY,
-      }),
       zValidator(
         "json",
         z.object({
           content: z.string(),
           guestbookId: z.number(),
-          parentCommentId: z.nullable(z.number()),
+          parentId: z.number().optional().nullable(),
         })
       ),
+      jwt({
+        secret: env.JWT_SECRET_KEY,
+      }),
+      getUserJwtMiddleware({ userService }),
       async (ctx) => {
-        const { content } = ctx.req.valid("json");
+        const { content, guestbookId, parentId } = ctx.req.valid("json");
+        const user = ctx.get("user");
+
+        const comment = await commentService.createComment({
+          content,
+          guestbookId,
+          parentId: parentId ?? null,
+          authorId: user.id,
+        });
+
         return ctx.json({
           success: true,
-          data: createNewMockGuestBook({ content }),
+          data: comment,
         });
       }
     )
