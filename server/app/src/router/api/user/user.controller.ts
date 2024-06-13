@@ -4,8 +4,8 @@ import { HTTPException } from "hono/http-exception";
 import { jwt } from "hono/jwt";
 import { z } from "zod";
 
-import { type Env } from "../../../worker-env";
 import { getUserJwtMiddleware } from "../../../middlewares/getUserJwtMiddleware";
+import { type Env } from "../../../worker-env";
 import { AuthService } from "../auth/auth.service";
 import { UserService } from "./user.service";
 

@@ -1,8 +1,9 @@
 import { Kysely, sql } from "kysely";
+
 import { DataBase } from "../../../types/database";
 import { addTimeStamp } from "../../../utils/addTimeStamp";
-import { Comment } from "./comment.schema";
 import { User } from "../user/user.schema";
+import { Comment } from "./comment.schema";
 
 export class CommentRepository {
   private db;
