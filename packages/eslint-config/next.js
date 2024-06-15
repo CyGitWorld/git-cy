@@ -44,7 +44,7 @@ module.exports = {
   overrides: [
     { files: ["*.js?(x)", "*.ts?(x)"] },
     {
-      files: ["src/app/**/{page,layout,not-found}.tsx"],
+      files: ["src/app/**/{page,layout,not-found,loading}.tsx"],
       rules: {
         "no-restricted-exports": "off",
       },
