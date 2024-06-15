@@ -39,6 +39,7 @@ CREATE TABLE Comments (
     parentId INTEGER NULL,
     createdAt TEXT,
     updatedAt TEXT,
+    isDeleted INTEGER DEFAULT 0,
     FOREIGN KEY (guestbookId) REFERENCES Guestbooks(id)
     FOREIGN KEY (authorId) REFERENCES Users(id)
 );
