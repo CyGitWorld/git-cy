@@ -1323,6 +1323,7 @@ __metadata:
     "@vercel/style-guide": "npm:^5.2.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-config-turbo: "npm:^1.12.4"
+    eslint-plugin-next-on-pages: "npm:^1.11.0"
     typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
@@ -1377,6 +1378,7 @@ __metadata:
     clsx: "npm:^2.1.1"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.2.1"
+    eslint-plugin-next-on-pages: "npm:^1.11.0"
     eslint-plugin-simple-import-sort: "npm:^12.1.0"
     eslint-plugin-turbo: "npm:^1.13.3"
     hono: "npm:^4.3.0"
@@ -1560,6 +1562,15 @@ __metadata:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
   checksum: 10/0cdd914b944ebba51c35827d3ef95bc3e16eb82b4c2741f6437fa57cdb00a4407c77f89c220afe9e4c9566982ec8a0fb9b97c956ac3bd4623a3b6af32eed8424
+  languageName: node
+  linkType: hard
+
+"@types/estree-jsx@npm:^1.0.0":
+  version: 1.0.5
+  resolution: "@types/estree-jsx@npm:1.0.5"
+  dependencies:
+    "@types/estree": "npm:*"
+  checksum: 10/a028ab0cd7b2950168a05c6a86026eb3a36a54a4adfae57f13911d7b49dffe573d9c2b28421b2d029b49b3d02fcd686611be2622dc3dad6d9791166c083f6008
   languageName: node
   linkType: hard
 
@@ -2847,6 +2858,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"comment-parser@npm:^1.3.1":
+  version: 1.4.1
+  resolution: "comment-parser@npm:1.4.1"
+  checksum: 10/16a3260b5e77819ebd9c99b0b65c7d6723b1ff73487bac9ce2d8f016a2847dd689e8663b88e1fad1444bbea89847c42f785708ac86a2c55f614f7095249bbf6b
+  languageName: node
+  linkType: hard
+
 "concat-map@npm:0.0.1":
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
@@ -3994,6 +4012,18 @@ __metadata:
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
   checksum: 10/7a8e4498531a43d988ce2f12502a3f5ce96eacfec13f956cf927f24bb041b724fb7fc0f0306ea19d143bfc79e138bf25e25acca0822847206ac6bf5ce095e846
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-next-on-pages@npm:^1.11.0":
+  version: 1.11.3
+  resolution: "eslint-plugin-next-on-pages@npm:1.11.3"
+  dependencies:
+    "@types/estree-jsx": "npm:^1.0.0"
+    comment-parser: "npm:^1.3.1"
+  peerDependencies:
+    eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+  checksum: 10/7e11a14373e041f5bf9e326d689aeb54363d07fbcc20f01f6f199afe4fcbb17b2369e1ffce7b216a8005500d0f774653b4a449351dd4cd82fb8e8deb49eee86e
   languageName: node
   linkType: hard
 

@@ -8,6 +8,7 @@ module.exports = {
     "eslint:recommended",
     "prettier",
     require.resolve("@vercel/style-guide/eslint/next"),
+    "plugin:next-on-pages/recommended",
   ],
   globals: {
     React: true,
@@ -30,7 +31,7 @@ module.exports = {
     "node_modules/",
     "*.d.ts",
   ],
-  plugins: ["simple-import-sort"],
+  plugins: ["simple-import-sort", "next-on-pages"],
   rules: {
     "no-restricted-exports": [
       "error",
@@ -40,6 +41,7 @@ module.exports = {
     "simple-import-sort/imports": "error",
     "no-unused-vars": "warn",
     "eol-last": "error",
+    "next-on-pages/no-unsupported-configs": "error",
   },
   overrides: [
     { files: ["*.js?(x)", "*.ts?(x)"] },
