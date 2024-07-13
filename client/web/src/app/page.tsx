@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Container } from "@/components/container";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -12,6 +14,7 @@ export default function Home() {
       <Header />
       <main className={mainContainerCss}>
         <HonoTest />
+
         <Container>
           :Image
           <h1 className={titleCss}>
@@ -19,7 +22,9 @@ export default function Home() {
             <br />
             :Description
           </h1>
-          <MinihomeButton />
+          <Link href="/minihome/:user-name/guestbook">
+            <MinihomeButton />
+          </Link>
         </Container>
       </main>
       <Footer />

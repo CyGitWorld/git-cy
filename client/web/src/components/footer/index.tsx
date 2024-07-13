@@ -14,8 +14,8 @@ export const Footer = () => {
         <Toolbar className={toolbarCss}>
           <div>:Logo</div>
           <div className={navButtonListCss}>
-            <Link href="/minihome/:user-name/guestbook">Github</Link>
-            <Link href="/minihome/:user-name/guestbook">LinkedIn</Link>
+            <Link href="https://github.com/CyGitWorld/git-cy">Github</Link>
+            {/* <Link href="">LinkedIn</Link> */}
           </div>
         </Toolbar>
       </Container>
