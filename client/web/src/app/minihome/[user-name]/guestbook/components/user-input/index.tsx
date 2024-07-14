@@ -3,23 +3,28 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
+import { requestApiJson } from "@/common/api";
 import { Button } from "@/components/button";
 import { TextInput } from "@/components/text-input";
 
 import { wrapper } from "./index.css";
 
+interface PostGuestbookPayload {
+  guestbookId: number;
+  content: string;
+  parentId?: number | null | undefined;
+}
+
 export const UserInput = () => {
   const [comment, setComment] = useState("");
-  // const { mutate } = useMutation({
-  //   mutationFn: ({ code }: GuestbookType) =>
-  //     requestApiJson((api) =>
-  //       api.users.login.$post({
-  //         json: {
-  //           code,
-  //         },
-  //       })
-  //     ),
-  // });
+  const { mutate } = useMutation({
+    mutationFn: (payload: PostGuestbookPayload) =>
+      requestApiJson((api) =>
+        api.guestbooks.$post({
+          json: payload,
+        })
+      ),
+  });
 
   return (
     <div className={wrapper}>

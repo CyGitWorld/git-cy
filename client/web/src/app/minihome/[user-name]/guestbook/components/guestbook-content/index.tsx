@@ -30,8 +30,8 @@ export function GuestbookContent() {
 
   return (
     <>
-      {/* <HonoTest /> */}
-      {/* <GithubLoginButton /> */}
+      <HonoTest />
+      <GithubLoginButton />
       <UserInput />
       <article className={guestbook}>mapping</article>
       <Divider />

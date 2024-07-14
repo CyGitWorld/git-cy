@@ -12,7 +12,7 @@ export const QueryProvider = ({ children }: Props) => {
       new QueryClient({
         defaultOptions: {
           queries: {
-            throwOnError: true,
+            // throwOnError: true,
           },
         },
       })
