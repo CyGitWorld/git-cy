@@ -1,10 +1,10 @@
-import { Comment } from "../router/api/comment/comment.schema";
-import { Guestbook } from "../router/api/guestbook/guestbook.schema";
-import { Minihome } from "../router/api/minihome/minihome.schema";
-import { User } from "./../router/api/user/user.schema";
+import { CommentTable } from "../router/api/comment/comment.schema";
+import { GuestbookTable } from "../router/api/guestbook/guestbook.schema";
+import { MinihomeTable } from "../router/api/minihome/minihome.schema";
+import { UserTable } from "./../router/api/user/user.schema";
 export type DataBase = {
-  Users: User;
-  Minihomes: Minihome;
-  Guestbooks: Guestbook;
-  Comments: Comment;
+  Users: UserTable;
+  Minihomes: MinihomeTable;
+  Guestbooks: GuestbookTable;
+  Comments: CommentTable;
 };
