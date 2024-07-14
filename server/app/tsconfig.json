@@ -1,5 +1,8 @@
 {
   "extends": "@repo/typescript-config/cloudflare-workers.json",
-  "compilerOptions": {},
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx"
+  },
   "exclude": ["test"]
 }
