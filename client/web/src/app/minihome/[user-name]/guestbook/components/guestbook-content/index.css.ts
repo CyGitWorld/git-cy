@@ -7,3 +7,8 @@ export const guestbook = style({
   paddingTop: "32px",
   paddingBottom: "32px",
 });
+
+export const commentDate = style({
+  fontSize: "14px",
+  color: "#666",
+});

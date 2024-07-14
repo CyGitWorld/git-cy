@@ -5,3 +5,12 @@ export const wrapper = style({
   display: "flex",
   gap: "4px",
 });
+
+export const title = style({
+  paddingRight: "4px",
+  fontSize: "20px",
+  display: "flex",
+  height: "100%",
+  alignItems: "center",
+  whiteSpace: "nowrap",
+});

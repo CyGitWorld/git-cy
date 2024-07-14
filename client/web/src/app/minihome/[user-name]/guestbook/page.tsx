@@ -1,10 +1,10 @@
 import { GuestbookContent } from "./components/guestbook-content";
-import { h1 } from "./page.css";
+import { GuestbookHeading } from "./components/heading";
 
 export default function Guestbook() {
   return (
     <>
-      <h1 className={h1}>Guestbook</h1>
+      <GuestbookHeading />
       <section>
         <GuestbookContent />
       </section>

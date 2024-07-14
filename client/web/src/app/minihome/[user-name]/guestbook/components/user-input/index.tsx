@@ -7,7 +7,7 @@ import { requestApiJson } from "@/common/api";
 import { Button } from "@/components/button";
 import { TextInput } from "@/components/text-input";
 
-import { wrapper } from "./index.css";
+import { title, wrapper } from "./index.css";
 
 interface PostGuestbookPayload {
   guestbookId: number;
@@ -28,6 +28,7 @@ export const UserInput = () => {
 
   return (
     <div className={wrapper}>
+      <div className={title}>Friends say</div>
       <TextInput
         multiline
         fullWidth

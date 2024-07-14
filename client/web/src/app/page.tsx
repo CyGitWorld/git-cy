@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Header />
       <main className={mainContainerCss}>
-        <HonoTest />
+        {/* <HonoTest /> */}
 
         <Container>
           :Image
