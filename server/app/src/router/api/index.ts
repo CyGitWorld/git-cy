@@ -7,7 +7,6 @@ import { createGuestbookController } from "./guestbook/guestbook.controller";
 import { creaetTestRouter } from "./test";
 import { createUserController } from "./user/user.controller";
 import { UserService } from "./user/user.service";
-import { createWidgetController } from "./widget/widget.controller";
 
 export const createApiRouter = ({
   env,
@@ -37,8 +36,7 @@ export const createApiRouter = ({
         commentService: services.commentService,
         userService: services.userService,
       })
-    )
-    .route("/widgets", createWidgetController({ env }));
+    );
 
   return api;
 };
