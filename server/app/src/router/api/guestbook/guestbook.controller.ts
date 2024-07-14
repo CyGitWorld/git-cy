@@ -8,7 +8,6 @@ import { getUserJwtMiddleware } from "../../../middlewares/getUserJwtMiddleware"
 import { type Env } from "../../../worker-env";
 import { CommentService } from "../comment/comment.service";
 import { UserService } from "../user/user.service";
-import { createNewMockGuestBook } from "./mock";
 
 export const createGuestbookController = ({
   env,
@@ -49,7 +48,7 @@ export const createGuestbookController = ({
         "json",
         z.object({
           content: z.string(),
-          guestbookId: z.number(),
+          githubUserName: z.string(),
           parentId: z.number().optional().nullable(),
         })
       ),
@@ -58,12 +57,21 @@ export const createGuestbookController = ({
       }),
       getUserJwtMiddleware({ userService }),
       async (ctx) => {
-        const { content, guestbookId, parentId } = ctx.req.valid("json");
+        const { content, githubUserName, parentId } = ctx.req.valid("json");
         const user = ctx.get("user");
+
+        const guestbook =
+          await userService.getGuestbookByGithubUserName(githubUserName);
+
+        if (guestbook == null) {
+          throw new HTTPException(400, {
+            message: "해당 유저는 방명록이 없어요",
+          });
+        }
 
         const comment = await commentService.createComment({
           content,
-          guestbookId,
+          guestbookId: guestbook.id,
           parentId: parentId ?? null,
           authorId: user.id,
         });
