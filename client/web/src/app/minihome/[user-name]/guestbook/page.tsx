@@ -1,3 +1,13 @@
+import { GuestbookContent } from "./components/guestbook-content";
+import { GuestbookHeading } from "./components/heading";
+
 export default function Guestbook() {
-  return <div>hello</div>;
+  return (
+    <>
+      <GuestbookHeading />
+      <section>
+        <GuestbookContent />
+      </section>
+    </>
+  );
 }
