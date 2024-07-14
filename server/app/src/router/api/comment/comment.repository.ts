@@ -1,8 +1,7 @@
-import { Kysely, sql } from "kysely";
+import { Kysely } from "kysely";
 
 import { DataBase } from "../../../types/database";
 import { addTimeStamp } from "../../../utils/addTimeStamp";
-import { User } from "../user/user.schema";
 import { Comment } from "./comment.schema";
 
 export class CommentRepository {
@@ -12,7 +11,7 @@ export class CommentRepository {
   }
 
   async getAllCommentsByGuestbookId(guestbookId: number) {
-    return await this.db
+    const res = await this.db
       .selectFrom("Comments")
       .where("Comments.guestbookId", "=", guestbookId)
       .where("Comments.isDeleted", "=", 0)
@@ -24,20 +23,37 @@ export class CommentRepository {
         "Comments.parentId",
         "Comments.createdAt",
         "Comments.updatedAt",
-        sql<User>`
-          json_object(
-            'id', Users.id,
-            'githubUserId', Users.githubUserId,
-            'thumbnailUrl', Users.thumbnailUrl,
-            'name', Users.name,
-            'githubUserName', Users.githubUserName,
-            'bio', Users.bio,
-            'githubUrl', Users.githubUrl,
-            'createdAt', Users.createdAt,
-            'updatedAt', Users.updatedAt
-          )`.as("author"),
+        "Users.id as authorId",
+        "Users.githubUserId as authorGithubUserId",
+        "Users.thumbnailUrl as authorThumbnailUrl",
+        "Users.name as authorName",
+        "Users.githubUserName as authorGithubUserName",
+        "Users.bio as authorBio",
+        "Users.githubUrl as authorGithubUrl",
+        "Users.createdAt as authorCreatedAt",
+        "Users.updatedAt as authorUpdatedAt",
       ])
       .execute();
+
+    return res.map((data) => ({
+      id: data.id,
+      guestbookId: data.guestbookId,
+      content: data.content,
+      parentId: data.parentId,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+      author: {
+        id: data.authorId,
+        githubUserId: data.authorGithubUserId,
+        thumbnailUrl: data.authorThumbnailUrl,
+        name: data.authorName,
+        githubUserName: data.authorGithubUserName,
+        bio: data.authorBio,
+        githubUrl: data.authorGithubUrl,
+        createdAt: data.authorCreatedAt,
+        updatedAt: data.authorUpdatedAt,
+      },
+    }));
   }
 
   async createComment(props: {
