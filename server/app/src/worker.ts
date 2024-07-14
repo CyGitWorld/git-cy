@@ -24,6 +24,7 @@ import { MinihomeRepository } from "./router/api/minihome/minihome.repository";
 import { MinihomeService } from "./router/api/minihome/minihome.service";
 import { UserRepository } from "./router/api/user/user.repository";
 import { UserService } from "./router/api/user/user.service";
+import { createWidgetRouter } from "./router/widget";
 import { DataBase } from "./types/database";
 import { Env } from "./worker-env";
 
@@ -69,6 +70,15 @@ export default {
         services: {
           authService,
           userService,
+          commentService,
+        },
+      })
+    );
+
+    app.route(
+      "/widget",
+      createWidgetRouter({
+        services: {
           commentService,
         },
       })
