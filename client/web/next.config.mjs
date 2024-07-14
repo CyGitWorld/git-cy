@@ -4,7 +4,7 @@ const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  output: process.env.NODE_ENV === "production" ? "export" : "standalone",
   compiler: {
     styledComponents: true,
   },
