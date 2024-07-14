@@ -4,7 +4,7 @@ export interface Comment {
   authorId: number;
   content: string;
   parentId: number | null;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
   isDeleted: number;
 }

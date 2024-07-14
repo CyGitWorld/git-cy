@@ -6,6 +6,6 @@ export interface User {
   githubUserName: string;
   bio: string;
   githubUrl: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
 }

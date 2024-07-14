@@ -15,8 +15,8 @@ interface CommentDTO {
   id: number;
   content: string;
   author: User;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
 }
 
 export class CommentService {
