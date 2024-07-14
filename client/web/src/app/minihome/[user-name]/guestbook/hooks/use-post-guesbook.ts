@@ -9,7 +9,6 @@ export interface PostGuestbookPayload {
   content: string;
   githubUserName: string;
   parentId?: string | null;
-  g;
 }
 
 export const usePostGuestbook = ({
