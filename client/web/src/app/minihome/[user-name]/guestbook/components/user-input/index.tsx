@@ -10,9 +10,9 @@ import { TextInput } from "@/components/text-input";
 import { title, wrapper } from "./index.css";
 
 interface PostGuestbookPayload {
-  guestbookId: number;
   content: string;
-  parentId?: number | null | undefined;
+  githubUserName: string;
+  parentId?: number | null;
 }
 
 export const UserInput = () => {
