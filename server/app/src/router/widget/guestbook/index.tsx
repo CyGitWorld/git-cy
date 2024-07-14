@@ -22,7 +22,7 @@ export const createGuestbookRoute = ({
     async (ctx) => {
       const { githubUserName } = ctx.req.valid("param");
 
-      const { result, comments, guestbookId } =
+      const { result, comments } =
         await commentService.getAllGuestbookCommentsByGithubUserName(
           githubUserName
         );
@@ -32,10 +32,11 @@ export const createGuestbookRoute = ({
       }
 
       const svg = await (
-        <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="#666666" />
           <text
             x="0"
-            y="10"
+            y="16"
             fontFamily="'sans-serif'"
             fontSize="10"
             fill="#000000"
@@ -44,7 +45,7 @@ export const createGuestbookRoute = ({
           </text>
           <text
             x="0"
-            y="20"
+            y="30"
             fontFamily="'sans-serif'"
             fontSize="10"
             fill="#000000"
