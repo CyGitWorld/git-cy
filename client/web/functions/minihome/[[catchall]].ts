@@ -14,5 +14,7 @@ export const onRequest: PagesFunction = async (context) => {
 
   const convertedPath = `/${["__dynamic__", ...catchall.slice(1)].join("/")}`;
 
+  console.log("converted", convertedPath);
+
   return next(convertedPath);
 };
