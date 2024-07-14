@@ -11,11 +11,11 @@ import {
 } from "../../hooks/use-post-guesbook";
 import { wrapper } from "./index.css";
 
-interface UserInputProps {
+interface UserReplyInputProps {
   parentId?: PostGuestbookPayload["parentId"];
 }
 
-export const UserInput = ({ parentId }: UserInputProps) => {
+export const UserReplyInput = ({ parentId }: UserReplyInputProps) => {
   const [comment, setComment] = useState("");
   const { mutate } = usePostGuestbook({
     payload: { parentId },
@@ -26,9 +26,9 @@ export const UserInput = ({ parentId }: UserInputProps) => {
 
   return (
     <div className={wrapper}>
+      ㄴ{" "}
       <TextInput
-        multiline
-        fullWidth
+        variant="flat"
         value={comment}
         onChange={(e) => {
           setComment(e.target.value);
@@ -43,7 +43,7 @@ export const UserInput = ({ parentId }: UserInputProps) => {
           mutate({ content: comment });
         }}
       >
-        OK
+        Reply
       </Button>
     </div>
   );
