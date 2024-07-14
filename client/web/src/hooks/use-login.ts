@@ -31,6 +31,7 @@ export const useUser = () => {
   return {
     isLogin,
     username: localStorage.getItem("username"),
+    token: localStorage.getItem("auth-token"),
     login,
   };
 };

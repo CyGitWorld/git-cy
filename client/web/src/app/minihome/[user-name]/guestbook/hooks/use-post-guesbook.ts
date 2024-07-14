@@ -19,7 +19,7 @@ export const usePostGuestbook = ({
   payload: Pick<PostGuestbookPayload, "parentId">;
   onSuccess?: () => void;
 }) => {
-  const { username } = useUser();
+  const { token } = useUser();
   const queryClient = useQueryClient();
   const params = useParams();
 
@@ -36,7 +36,7 @@ export const usePostGuestbook = ({
           },
           {
             headers: {
-              Authorization: `Bearer ${username}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         )
