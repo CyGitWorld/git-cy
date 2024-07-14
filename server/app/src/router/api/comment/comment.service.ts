@@ -1,18 +1,9 @@
 import { Env } from "../../../worker-env";
-import { User } from "../user/user.schema";
 import { UserService } from "../user/user.service";
 import { CommentRepository } from "./comment.repository";
-import { CommentTable } from "./comment.schema";
+import { type Comment, type CommentTable } from "./comment.schema";
 
-type CommentWithRepies = CommentDTO & { replies: CommentDTO[] };
-
-interface CommentDTO {
-  id: number;
-  content: string;
-  author: User;
-  createdAt: string;
-  updatedAt: string;
-}
+type CommentWithRepies = Comment & { replies: Comment[] };
 
 export class CommentService {
   private env;

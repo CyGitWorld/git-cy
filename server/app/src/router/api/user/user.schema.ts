@@ -1,3 +1,5 @@
+import { type ConvertTimeType } from "../../../utils/types";
+
 export interface UserTable {
   id: number;
   githubUserId: number;
@@ -10,7 +12,4 @@ export interface UserTable {
   updatedAt: number;
 }
 
-export interface User extends Omit<UserTable, "createdAt" | "updatedAt"> {
-  createdAt: string;
-  updatedAt: string;
-}
+export type User = ConvertTimeType<UserTable>;
