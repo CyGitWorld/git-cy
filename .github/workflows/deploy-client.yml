@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build
         working-directory: client/web
-        run: npx @cloudflare/next-on-pages@1
+        run: yarn build
         env:
           NEXT_PUBLIC_SERVER_API_HOST: ${{ vars.NEXT_PUBLIC_SERVER_API_HOST }}
           NEXT_PUBLIC_GITHUB_CLIENT_ID: ${{ vars.NEXT_PUBLIC_GITHUB_CLIENT_ID }}
@@ -26,4 +26,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: "client/web"
-          command: pages deploy .vercel/output/static --project-name=gitcy
+          command: pages deploy ./out --project-name=gitcy
