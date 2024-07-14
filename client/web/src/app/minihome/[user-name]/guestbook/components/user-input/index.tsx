@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/button";
 import { TextInput } from "@/components/text-input";
+import { useUser } from "@/hooks/use-login";
 
 import {
   PostGuestbookPayload,
@@ -16,6 +17,8 @@ interface UserInputProps {
 }
 
 export const UserInput = ({ parentId }: UserInputProps) => {
+  const { isLogin } = useUser();
+
   const [comment, setComment] = useState("");
   const { mutate } = usePostGuestbook({
     payload: { parentId },
@@ -36,6 +39,11 @@ export const UserInput = ({ parentId }: UserInputProps) => {
       />
       <Button
         onClick={() => {
+          if (isLogin === false) {
+            alert("Please login first !!");
+            return;
+          }
+
           if (comment === "") {
             return;
           }

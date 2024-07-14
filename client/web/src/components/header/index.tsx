@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AppBar, Button, Toolbar } from "react95";
 
+import { GithubLoginButton } from "@/app/oauth/GithubLoginButton";
 import { Container } from "@/components/container";
 import { useUser } from "@/hooks/use-login";
 
@@ -30,6 +31,8 @@ export const Header = () => {
                     Minihome
                   </Button>
                 </Link>
+              ) : isLogin === false ? (
+                <GithubLoginButton />
               ) : null}
             </div>
           </Toolbar>
