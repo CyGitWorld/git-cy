@@ -66,7 +66,6 @@ export function GuestbookContent() {
 
   return (
     <>
-      <GithubLoginButton />
       <UserInput />
       {TEMP_COMMENTS.map((comment) => (
         <Fragment key={comment.id}>
