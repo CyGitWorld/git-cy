@@ -1,4 +1,5 @@
 import { Kysely } from "kysely";
+import { ulid } from "ulid";
 
 import { DataBase } from "../../../types/database";
 import { addTimeStamp } from "../../../utils/timestamp";
@@ -10,7 +11,7 @@ export class GuestbookRepository {
     this.db = db;
   }
 
-  async getGuestbookByMinihomeId(minihomeId: number) {
+  async getGuestbookByMinihomeId(minihomeId: GuestbookTable["minihomeId"]) {
     return await this.db
       .selectFrom("Guestbooks")
       .selectAll()
@@ -18,10 +19,10 @@ export class GuestbookRepository {
       .executeTakeFirst();
   }
 
-  async createGuestbook(minihomeId: number) {
+  async createGuestbook(minihomeId: GuestbookTable["minihomeId"]) {
     return await this.db
       .insertInto("Guestbooks")
-      .values(addTimeStamp({ minihomeId }) as GuestbookTable)
+      .values(addTimeStamp({ minihomeId, id: ulid() }) as GuestbookTable)
       .returningAll()
       .executeTakeFirstOrThrow();
   }

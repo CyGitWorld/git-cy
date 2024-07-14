@@ -32,7 +32,7 @@ export class CommentService {
     const comments = await this.commentRepository.getAllCommentsByGuestbookId(
       guestbook.id
     );
-    const commentMap = new Map<number, CommentWithRepies>();
+    const commentMap = new Map<Comment["id"], CommentWithRepies>();
     comments.forEach((comment) => {
       const { parentId, ...commentData } = comment;
 

@@ -1,18 +1,18 @@
 import { User } from "../user/user.schema";
 
 export interface CommentTable {
-  id: number;
-  guestbookId: number;
-  authorId: number;
+  id: string;
+  guestbookId: string;
+  authorId: string;
   content: string;
-  parentId: number | null;
+  parentId: string | null;
   createdAt: number;
   updatedAt: number;
   isDeleted: number;
 }
 
 export interface Comment {
-  id: number;
+  id: string;
   content: string;
   author: User;
   createdAt: string;

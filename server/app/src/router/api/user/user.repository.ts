@@ -1,4 +1,5 @@
 import { Kysely } from "kysely";
+import { ulid } from "ulid";
 
 import { DataBase } from "../../../types/database";
 import { addTimeStamp } from "../../../utils/timestamp";
@@ -38,7 +39,7 @@ export class UserRepository {
   async createUser(props: Omit<UserTable, "id" | "createdAt" | "updatedAt">) {
     return await this.db
       .insertInto("Users")
-      .values(addTimeStamp(props) as UserTable)
+      .values(addTimeStamp({ ...props, id: ulid() }) as UserTable)
       .returningAll()
       .executeTakeFirstOrThrow();
   }

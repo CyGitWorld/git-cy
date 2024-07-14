@@ -49,7 +49,7 @@ export const createGuestbookController = ({
         z.object({
           content: z.string(),
           githubUserName: z.string(),
-          parentId: z.number().optional().nullable(),
+          parentId: z.string().optional().nullable(),
         })
       ),
       jwt({
@@ -91,7 +91,7 @@ export const createGuestbookController = ({
         "json",
         z.object({
           content: z.string(),
-          id: z.number(),
+          id: z.string(),
         })
       ),
       async (ctx) => {
@@ -116,7 +116,7 @@ export const createGuestbookController = ({
       zValidator(
         "json",
         z.object({
-          id: z.number(),
+          id: z.string(),
         })
       ),
       async (ctx) => {

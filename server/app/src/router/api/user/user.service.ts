@@ -53,7 +53,7 @@ export class UserService {
     return guestbook;
   }
 
-  async getUserById(id: number) {
+  async getUserById(id: UserTable["id"]) {
     const res = await this.userRepository.getUserById(id);
     return res;
   }

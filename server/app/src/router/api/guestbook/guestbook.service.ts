@@ -16,18 +16,18 @@ export class GuestbookService {
     this.gestbookRepository = gestbookRepository;
   }
 
-  async getGuestbook(minihomeId: number) {
+  async getGuestbook(minihomeId: GuestbookTable["minihomeId"]) {
     const res =
       await this.gestbookRepository.getGuestbookByMinihomeId(minihomeId);
     return res;
   }
 
-  async createGuestbook(minihomeId: number) {
+  async createGuestbook(minihomeId: GuestbookTable["minihomeId"]) {
     const res = await this.gestbookRepository.createGuestbook(minihomeId);
     return res;
   }
 
-  async getGuestbookOrCreate(minihomeId: number) {
+  async getGuestbookOrCreate(minihomeId: GuestbookTable["minihomeId"]) {
     let guestbook: GuestbookTable;
     const res = await this.getGuestbook(minihomeId);
     if (res == null) {
