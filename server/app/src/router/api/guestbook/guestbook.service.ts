@@ -1,6 +1,6 @@
 import { Env } from "../../../worker-env";
 import { GuestbookRepository } from "./guestbook.repository";
-import { Guestbook } from "./guestbook.schema";
+import { GuestbookTable } from "./guestbook.schema";
 
 export class GuestbookService {
   private env;
@@ -28,7 +28,7 @@ export class GuestbookService {
   }
 
   async getGuestbookOrCreate(minihomeId: number) {
-    let guestbook: Guestbook;
+    let guestbook: GuestbookTable;
     const res = await this.getGuestbook(minihomeId);
     if (res == null) {
       guestbook = await this.gestbookRepository.createGuestbook(minihomeId);

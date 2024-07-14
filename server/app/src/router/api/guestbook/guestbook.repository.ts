@@ -1,8 +1,8 @@
 import { Kysely } from "kysely";
 
 import { DataBase } from "../../../types/database";
-import { addTimeStamp } from "../../../utils/addTimeStamp";
-import { Guestbook } from "./guestbook.schema";
+import { addTimeStamp } from "../../../utils/timestamp";
+import { GuestbookTable } from "./guestbook.schema";
 
 export class GuestbookRepository {
   private db;
@@ -21,7 +21,7 @@ export class GuestbookRepository {
   async createGuestbook(minihomeId: number) {
     return await this.db
       .insertInto("Guestbooks")
-      .values(addTimeStamp({ minihomeId }) as Guestbook)
+      .values(addTimeStamp({ minihomeId }) as GuestbookTable)
       .returningAll()
       .executeTakeFirstOrThrow();
   }

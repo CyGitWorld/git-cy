@@ -1,6 +1,6 @@
-export interface Minihome {
+export interface MinihomeTable {
   id: number;
   userId: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
 }

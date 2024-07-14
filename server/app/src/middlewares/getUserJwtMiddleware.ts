@@ -2,12 +2,12 @@ import { Context, Next } from "hono";
 import { HTTPException } from "hono/http-exception";
 
 import { JwtPayload } from "../router/api/auth/types";
-import { User } from "../router/api/user/user.schema";
+import { UserTable } from "../router/api/user/user.schema";
 import { UserService } from "../router/api/user/user.service";
 
 declare module "hono" {
   interface ContextVariableMap {
-    user: User;
+    user: UserTable;
   }
 }
 

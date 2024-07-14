@@ -11,23 +11,23 @@ CREATE TABLE Users (
     githubUserName TEXT,
     bio TEXT,
     githubUrl TEXT,
-    createdAt TEXT,
-    updatedAt TEXT
+    createdAt INTEGER,
+    updatedAt INTEGER
 );
 
 CREATE TABLE Minihomes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,    
     userId INTEGER UNIQUE,
-    createdAt TEXT,
-    updatedAt TEXT,
+    createdAt INTEGER,
+    updatedAt INTEGER,
     FOREIGN KEY (userId) REFERENCES Users(id)
 );
 
 CREATE TABLE Guestbooks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,    
     minihomeId INTEGER UNIQUE,
-    createdAt TEXT,
-    updatedAt TEXT,
+    createdAt INTEGER,
+    updatedAt INTEGER,
     FOREIGN KEY (minihomeId) REFERENCES Minihomes(id)
 );
 
@@ -37,8 +37,8 @@ CREATE TABLE Comments (
     authorId INTEGER,
     content TEXT,
     parentId INTEGER NULL,
-    createdAt TEXT,
-    updatedAt TEXT,
+    createdAt INTEGER,
+    updatedAt INTEGER,
     isDeleted INTEGER DEFAULT 0,
     FOREIGN KEY (guestbookId) REFERENCES Guestbooks(id),
     FOREIGN KEY (authorId) REFERENCES Users(id)

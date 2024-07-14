@@ -1,8 +1,8 @@
 import { Kysely } from "kysely";
 
 import { DataBase } from "../../../types/database";
-import { addTimeStamp } from "../../../utils/addTimeStamp";
-import { Minihome } from "./minihome.schema";
+import { addTimeStamp } from "../../../utils/timestamp";
+import { MinihomeTable } from "./minihome.schema";
 
 export class MinihomeRepository {
   private db;
@@ -21,7 +21,7 @@ export class MinihomeRepository {
   async createMinihome(userId: number) {
     return await this.db
       .insertInto("Minihomes")
-      .values(addTimeStamp({ userId }) as Minihome)
+      .values(addTimeStamp({ userId }) as MinihomeTable)
       .returningAll()
       .executeTakeFirstOrThrow();
   }

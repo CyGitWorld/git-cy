@@ -1,4 +1,6 @@
-export interface User {
+import { type ConvertTimeType } from "../../../utils/types";
+
+export interface UserTable {
   id: number;
   githubUserId: number;
   thumbnailUrl: string;
@@ -6,6 +8,8 @@ export interface User {
   githubUserName: string;
   bio: string;
   githubUrl: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
 }
+
+export type User = ConvertTimeType<UserTable>;
