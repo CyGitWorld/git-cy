@@ -17,16 +17,20 @@ export const Header = () => {
           <Toolbar className={toolbarCss}>
             <div>:Logo</div>
             <div className={navButtonListCss}>
-              <Link href="/minihome/:user-name/guestbook">
-                <Button
-                  size="lg"
-                  variant="menu"
-                  type="button"
-                  active={pathname.startsWith("/minihome")}
+              {localStorage.getItem("auth-token") != null ? (
+                <Link
+                  href={`/minihome/${localStorage.getItem("username")}/guestbook`}
                 >
-                  Minihome
-                </Button>
-              </Link>
+                  <Button
+                    size="lg"
+                    variant="menu"
+                    type="button"
+                    active={pathname.startsWith("/minihome")}
+                  >
+                    Minihome
+                  </Button>
+                </Link>
+              ) : null}
             </div>
           </Toolbar>
         </Container>

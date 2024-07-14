@@ -23,14 +23,11 @@ export default function Page() {
       return;
     }
     (async () => {
-      try {
-        await loginRequest({ code });
+      const { data } = await loginRequest({ code });
+      localStorage.setItem("auth-token", data.accessToken);
+      localStorage.setItem("username", data.githubUserName);
 
-        router.push("/");
-      } catch (e) {
-        // TODO: Alert
-        router.push("/");
-      }
+      router.push("/");
     })();
   }, []);
   return (
