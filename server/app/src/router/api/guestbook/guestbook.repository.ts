@@ -1,7 +1,7 @@
 import { Kysely } from "kysely";
 
 import { DataBase } from "../../../types/database";
-import { addTimeStamp } from "../../../utils/addTimeStamp";
+import { addTimeStamp } from "../../../utils/timestamp";
 import { GuestbookTable } from "./guestbook.schema";
 
 export class GuestbookRepository {

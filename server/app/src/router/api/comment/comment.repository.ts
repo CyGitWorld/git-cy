@@ -4,7 +4,7 @@ import { DataBase } from "../../../types/database";
 import {
   addTimeStamp,
   convertTimestampToISOString,
-} from "../../../utils/addTimeStamp";
+} from "../../../utils/timestamp";
 import { CommentTable } from "./comment.schema";
 
 export class CommentRepository {
