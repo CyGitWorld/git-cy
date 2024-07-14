@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AppBar, Button, Toolbar } from "react95";
 
+import { localStorage } from "@/common/local-storage";
 import { Container } from "@/components/container";
 
 import { navButtonListCss, plcaeholderCss, toolbarCss } from "./index.css";

@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { GithubLoginButton } from "@/app/oauth/GithubLoginButton";
+import { localStorage } from "@/common/local-storage";
 
 import { MinihomeButton } from "../minihome-button";
 
