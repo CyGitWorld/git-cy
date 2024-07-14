@@ -75,7 +75,14 @@ export default {
       })
     );
 
-    app.route("/widget", createWidgetRouter());
+    app.route(
+      "/widget",
+      createWidgetRouter({
+        services: {
+          commentService,
+        },
+      })
+    );
 
     return app.fetch(request, env, ctx);
   },

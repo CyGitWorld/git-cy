@@ -1,9 +1,14 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import {} from "hono/jsx";
 import { z } from "zod";
 
-export const createGuestbookRoute = () => {
+import { CommentService } from "../../api/comment/comment.service";
+
+export const createGuestbookRoute = ({
+  commentService,
+}: {
+  commentService: CommentService;
+}) => {
   const route = new Hono();
 
   route.get(
@@ -17,20 +22,34 @@ export const createGuestbookRoute = () => {
     async (ctx) => {
       const { githubUserName } = ctx.req.valid("param");
 
-      const data = `<svg viewBox="0 0 240 80" xmlns='http://www.w3.org/2000/svg'>
-        <text x="0" y="30" font-family="'sans-serif'" font-size="20" fill="#000000">${githubUserName}</text>
-      </svg>`;
+      const { result, comments, guestbookId } =
+        await commentService.getAllGuestbookCommentsByGithubUserName(
+          githubUserName
+        );
+
+      if (result === "notFound") {
+        return ctx.body(null, { status: 404 });
+      }
 
       const svg = await (
         <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg">
           <text
             x="0"
-            y="30"
+            y="10"
             fontFamily="'sans-serif'"
-            fontSize="20"
+            fontSize="10"
             fill="#000000"
           >
             {githubUserName}
+          </text>
+          <text
+            x="0"
+            y="20"
+            fontFamily="'sans-serif'"
+            fontSize="10"
+            fill="#000000"
+          >
+            {comments.map((c) => c.content).join("\n")}
           </text>
         </svg>
       );
