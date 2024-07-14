@@ -81,4 +81,17 @@ export class CommentService {
     const res = await this.commentRepository.createComment(props);
     return res;
   }
+
+  async updateComment(props: {
+    content: Comment["content"];
+    id: Comment["id"];
+  }) {
+    const res = await this.commentRepository.updateComment(props);
+    return res;
+  }
+
+  async deleteComment(props: { id: Comment["id"] }) {
+    const res = await this.commentRepository.deleteComment(props);
+    return { isSuccess: res != null };
+  }
 }
