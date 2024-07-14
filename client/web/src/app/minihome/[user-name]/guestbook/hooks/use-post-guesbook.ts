@@ -8,7 +8,8 @@ import { getApiPath, requestApiJson } from "@/common/api";
 export interface PostGuestbookPayload {
   content: string;
   githubUserName: string;
-  parentId?: number | null;
+  parentId?: string | null;
+  g;
 }
 
 export const usePostGuestbook = ({
