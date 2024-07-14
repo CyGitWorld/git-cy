@@ -1,5 +1,5 @@
 import { Kysely } from "kysely";
-import { ulid } from "ulid";
+import { ulid } from "ulidx";
 
 import { DataBase } from "../../../types/database";
 import {

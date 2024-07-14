@@ -2,6 +2,7 @@ import { sign, verify } from "hono/jwt";
 import queryString from "query-string";
 
 import { type Env } from "../../../worker-env";
+import { User } from "../user/user.schema";
 import { EXPIRATION_DURATION } from "./constant";
 import { JwtPayload } from "./types";
 
@@ -72,7 +73,7 @@ export class AuthService {
     userId,
     userName,
   }: {
-    userId: number;
+    userId: User['id'];
     userName: string;
   }) {
     const now = Math.floor(Date.now() / 1000);
