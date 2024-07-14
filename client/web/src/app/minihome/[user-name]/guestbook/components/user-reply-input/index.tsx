@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/button";
 import { TextInput } from "@/components/text-input";
+import { useUser } from "@/hooks/use-login";
 
 import {
   PostGuestbookPayload,
@@ -16,8 +17,10 @@ interface UserReplyInputProps {
 }
 
 export const UserReplyInput = ({ parentId }: UserReplyInputProps) => {
+  const { isLogin } = useUser();
+
   const [comment, setComment] = useState("");
-  const { mutate } = usePostGuestbook({
+  const { mutateAsync } = usePostGuestbook({
     payload: { parentId },
     onSuccess: () => {
       setComment("");
@@ -35,12 +38,17 @@ export const UserReplyInput = ({ parentId }: UserReplyInputProps) => {
         }}
       />
       <Button
-        onClick={() => {
+        onClick={async () => {
+          if (isLogin === false) {
+            alert("Please login first !!");
+            return;
+          }
+
           if (comment === "") {
             return;
           }
 
-          mutate({ content: comment });
+          await mutateAsync({ content: comment });
         }}
       >
         Reply
