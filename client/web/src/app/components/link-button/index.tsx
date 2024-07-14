@@ -3,15 +3,15 @@
 import Link from "next/link";
 
 import { GithubLoginButton } from "@/app/oauth/GithubLoginButton";
-import { localStorage } from "@/common/local-storage";
+import { checkLogin, getUsername } from "@/utils/login";
 
 import { MinihomeButton } from "../minihome-button";
 
 export const LinkButton = () => {
   return (
     <>
-      {localStorage.getItem("auth-token") != null ? (
-        <Link href={`/minihome/${localStorage.getItem("username")}/guestbook`}>
+      {checkLogin() ? (
+        <Link href={`/minihome/${getUsername()}/guestbook`}>
           <MinihomeButton />
         </Link>
       ) : (

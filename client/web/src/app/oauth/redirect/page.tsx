@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Hourglass } from "react95";
 import styled from "styled-components";
 
-import { localStorage } from "@/common/local-storage";
+import { saveLoginInfo } from "@/utils/login";
 
 import { useLoginMutation } from "../use-login-mutation";
 
@@ -26,8 +26,10 @@ export default function Page() {
     }
     (async () => {
       const { data } = await loginRequest({ code });
-      localStorage.setItem("auth-token", data.accessToken);
-      localStorage.setItem("username", data.githubUserName);
+      saveLoginInfo({
+        authToken: data.accessToken,
+        username: data.githubUserName,
+      });
 
       router.push("/");
     })();

@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
 import { getApiPath, requestApiJson } from "@/common/api";
+import { getUsername } from "@/utils/login";
 
 export interface PostGuestbookPayload {
   content: string;
@@ -34,7 +35,7 @@ export const usePostGuestbook = ({
           },
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+              Authorization: `Bearer ${getUsername()}`,
             },
           }
         )
