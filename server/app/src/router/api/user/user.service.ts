@@ -1,3 +1,5 @@
+import { ulid } from "ulidx";
+
 import { Env } from "../../../worker-env";
 import { MinihomeService } from "../minihome/minihome.service";
 import { GuestbookService } from "./../guestbook/guestbook.service";
@@ -53,7 +55,7 @@ export class UserService {
     return guestbook;
   }
 
-  async getUserById(id: number) {
+  async getUserById(id: UserTable["id"]) {
     const res = await this.userRepository.getUserById(id);
     return res;
   }

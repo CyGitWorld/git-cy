@@ -1,4 +1,5 @@
 import { Kysely } from "kysely";
+import { ulid } from "ulidx";
 
 import { DataBase } from "../../../types/database";
 import { addTimeStamp } from "../../../utils/timestamp";
@@ -10,7 +11,7 @@ export class MinihomeRepository {
     this.db = db;
   }
 
-  async getMinihomeByUserId(userId: number) {
+  async getMinihomeByUserId(userId: MinihomeTable["userId"]) {
     return await this.db
       .selectFrom("Minihomes")
       .selectAll()
@@ -18,10 +19,10 @@ export class MinihomeRepository {
       .executeTakeFirst();
   }
 
-  async createMinihome(userId: number) {
+  async createMinihome(userId: MinihomeTable["userId"]) {
     return await this.db
       .insertInto("Minihomes")
-      .values(addTimeStamp({ userId }) as MinihomeTable)
+      .values(addTimeStamp({ userId, id: ulid() }) as MinihomeTable)
       .returningAll()
       .executeTakeFirstOrThrow();
   }

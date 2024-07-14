@@ -9,7 +9,7 @@ import { useUser } from "@/hooks/use-login";
 export interface PostGuestbookPayload {
   content: string;
   githubUserName: string;
-  parentId?: number | null;
+  parentId?: string | null;
 }
 
 export const usePostGuestbook = ({

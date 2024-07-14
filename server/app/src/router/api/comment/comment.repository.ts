@@ -1,4 +1,5 @@
 import { Kysely } from "kysely";
+import { ulid } from "ulidx";
 
 import { DataBase } from "../../../types/database";
 import {
@@ -13,7 +14,7 @@ export class CommentRepository {
     this.db = db;
   }
 
-  async getAllCommentsByGuestbookId(guestbookId: number) {
+  async getAllCommentsByGuestbookId(guestbookId: CommentTable["guestbookId"]) {
     const res = await this.db
       .selectFrom("Comments")
       .where("Comments.guestbookId", "=", guestbookId)
@@ -69,7 +70,7 @@ export class CommentRepository {
   }) {
     const res = await this.db
       .insertInto("Comments")
-      .values(addTimeStamp(props) as CommentTable)
+      .values(addTimeStamp({ ...props, id: ulid() }) as CommentTable)
       .returningAll()
       .executeTakeFirstOrThrow();
 
@@ -98,7 +99,7 @@ export class CommentRepository {
       .set({
         isDeleted: 1,
       })
-      .where("Comments.id", "=", Number(props.id))
+      .where("Comments.id", "=", props.id)
       .returningAll()
       .executeTakeFirst();
   }

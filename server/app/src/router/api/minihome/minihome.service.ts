@@ -16,17 +16,17 @@ export class MinihomeService {
     this.minihomeRepository = minihomeRepository;
   }
 
-  async getMinihome(userId: number) {
+  async getMinihome(userId: MinihomeTable["userId"]) {
     const res = await this.minihomeRepository.getMinihomeByUserId(userId);
     return res;
   }
 
-  async createMinihome(userId: number) {
+  async createMinihome(userId: MinihomeTable["userId"]) {
     const res = await this.minihomeRepository.createMinihome(userId);
     return res;
   }
 
-  async getMinihomeOrCreate(userId: number) {
+  async getMinihomeOrCreate(userId: MinihomeTable["userId"]) {
     let minihome: MinihomeTable;
     const res = await this.getMinihome(userId);
     if (res == null) {

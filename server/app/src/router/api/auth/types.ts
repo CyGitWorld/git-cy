@@ -1,5 +1,5 @@
 export type JwtPayload = {
-  sub: number;
+  sub: string;
   name: string;
   exp: number;
   iat: number;

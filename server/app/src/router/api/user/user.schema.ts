@@ -1,7 +1,7 @@
 import { type ConvertTimeType } from "../../../utils/types";
 
 export interface UserTable {
-  id: number;
+  id: string;
   githubUserId: number;
   thumbnailUrl: string;
   name: string;
