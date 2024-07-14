@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -11,16 +14,23 @@ jobs:
     name: Deploy Client
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+
       - name: Build
         working-directory: client/web
-        run: npx @cloudflare/next-on-pages@1
+        run: yarn build
         env:
           NEXT_PUBLIC_SERVER_API_HOST: ${{ vars.NEXT_PUBLIC_SERVER_API_HOST }}
           NEXT_PUBLIC_GITHUB_CLIENT_ID: ${{ vars.NEXT_PUBLIC_GITHUB_CLIENT_ID }}
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
+          packageManager: yarn
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: "client/web"
-          command: pages deploy .vercel/output/static --project-name=gitcy
+          command: pages deploy ./out --project-name=gitcy
