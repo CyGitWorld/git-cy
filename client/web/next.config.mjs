@@ -1,9 +1,4 @@
 import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
-import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
-
-if (process.env.NODE_ENV === "development") {
-  await setupDevPlatform();
-}
 
 const withVanillaExtract = createVanillaExtractPlugin();
 
