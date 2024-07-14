@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
 import { getApiPath, requestApiJson } from "@/common/api";
-import { getUsername } from "@/utils/login";
+import { useUser } from "@/hooks/use-login";
 
 export interface PostGuestbookPayload {
   content: string;
@@ -19,6 +19,7 @@ export const usePostGuestbook = ({
   payload: Pick<PostGuestbookPayload, "parentId">;
   onSuccess?: () => void;
 }) => {
+  const { username } = useUser();
   const queryClient = useQueryClient();
   const params = useParams();
 
@@ -35,7 +36,7 @@ export const usePostGuestbook = ({
           },
           {
             headers: {
-              Authorization: `Bearer ${getUsername()}`,
+              Authorization: `Bearer ${username}`,
             },
           }
         )

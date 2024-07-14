@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Hourglass } from "react95";
 import styled from "styled-components";
 
-import { saveLoginInfo } from "@/utils/login";
+import { useUser } from "@/hooks/use-login";
 
 import { useLoginMutation } from "../use-login-mutation";
 
@@ -15,6 +15,8 @@ function useGetOAuthCode() {
 }
 
 export default function Page() {
+  const { login } = useUser();
+
   const code = useGetOAuthCode();
   const router = useRouter();
   const { mutateAsync: loginRequest } = useLoginMutation();
@@ -26,7 +28,7 @@ export default function Page() {
     }
     (async () => {
       const { data } = await loginRequest({ code });
-      saveLoginInfo({
+      login({
         authToken: data.accessToken,
         username: data.githubUserName,
       });

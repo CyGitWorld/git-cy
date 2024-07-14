@@ -5,11 +5,12 @@ import { usePathname } from "next/navigation";
 import { AppBar, Button, Toolbar } from "react95";
 
 import { Container } from "@/components/container";
-import { checkLogin, getUsername } from "@/utils/login";
+import { useUser } from "@/hooks/use-login";
 
 import { navButtonListCss, plcaeholderCss, toolbarCss } from "./index.css";
 
 export const Header = () => {
+  const { isLogin, username } = useUser();
   const pathname = usePathname();
   return (
     <div className={plcaeholderCss}>
@@ -18,8 +19,8 @@ export const Header = () => {
           <Toolbar className={toolbarCss}>
             <div>:Logo</div>
             <div className={navButtonListCss}>
-              {checkLogin() ? (
-                <Link href={`/minihome/${getUsername()}/guestbook`}>
+              {isLogin ? (
+                <Link href={`/minihome/${username}/guestbook`}>
                   <Button
                     size="lg"
                     variant="menu"

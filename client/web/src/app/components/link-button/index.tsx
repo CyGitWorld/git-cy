@@ -3,20 +3,21 @@
 import Link from "next/link";
 
 import { GithubLoginButton } from "@/app/oauth/GithubLoginButton";
-import { checkLogin, getUsername } from "@/utils/login";
+import { useUser } from "@/hooks/use-login";
 
 import { MinihomeButton } from "../minihome-button";
 
 export const LinkButton = () => {
+  const { isLogin, username } = useUser();
   return (
     <>
-      {checkLogin() ? (
-        <Link href={`/minihome/${getUsername()}/guestbook`}>
+      {isLogin ? (
+        <Link href={`/minihome/${username}/guestbook`}>
           <MinihomeButton />
         </Link>
-      ) : (
+      ) : isLogin === false ? (
         <GithubLoginButton />
-      )}
+      ) : null}
     </>
   );
 };
