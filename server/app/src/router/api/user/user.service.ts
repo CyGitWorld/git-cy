@@ -2,7 +2,7 @@ import { Env } from "../../../worker-env";
 import { MinihomeService } from "../minihome/minihome.service";
 import { GuestbookService } from "./../guestbook/guestbook.service";
 import { UserRepository } from "./user.repository";
-import { User } from "./user.schema";
+import { UserTable } from "./user.schema";
 
 export class UserService {
   private env;
@@ -58,13 +58,13 @@ export class UserService {
     return res;
   }
 
-  async createUser(props: Omit<User, "id" | "createdAt" | "updatedAt">) {
+  async createUser(props: Omit<UserTable, "id" | "createdAt" | "updatedAt">) {
     const res = await this.userRepository.createUser(props);
     return res;
   }
 
   async createUserAndMinihomeAndGuestbook(
-    props: Omit<User, "id" | "createdAt" | "updatedAt">
+    props: Omit<UserTable, "id" | "createdAt" | "updatedAt">
   ) {
     const createdUser = await this.createUser(props);
     const createdMinihome = await this.minihomeService.getMinihomeOrCreate(
@@ -75,12 +75,12 @@ export class UserService {
   }
 
   async getUserOrCreateUser(
-    props: Omit<User, "id" | "createdAt" | "updatedAt">
+    props: Omit<UserTable, "id" | "createdAt" | "updatedAt">
   ) {
     const { bio, githubUrl, githubUserId, githubUserName, name, thumbnailUrl } =
       props;
 
-    let user: User;
+    let user: UserTable;
     const res = await this.getUserByGithubUserId(githubUserId);
     if (res == null) {
       user = await this.createUserAndMinihomeAndGuestbook({

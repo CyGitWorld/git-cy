@@ -1,6 +1,6 @@
 import { Env } from "../../../worker-env";
 import { MinihomeRepository } from "../minihome/minihome.repository";
-import { Minihome } from "../minihome/minihome.schema";
+import { MinihomeTable } from "../minihome/minihome.schema";
 
 export class MinihomeService {
   private env;
@@ -27,7 +27,7 @@ export class MinihomeService {
   }
 
   async getMinihomeOrCreate(userId: number) {
-    let minihome: Minihome;
+    let minihome: MinihomeTable;
     const res = await this.getMinihome(userId);
     if (res == null) {
       minihome = await this.minihomeRepository.createMinihome(userId);

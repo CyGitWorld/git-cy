@@ -1,4 +1,4 @@
-export interface Guestbook {
+export interface GuestbookTable {
   id: number;
   minihomeId: number;
   createdAt: number;

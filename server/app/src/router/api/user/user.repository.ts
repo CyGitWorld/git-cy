@@ -2,7 +2,7 @@ import { Kysely } from "kysely";
 
 import { DataBase } from "../../../types/database";
 import { addTimeStamp } from "../../../utils/addTimeStamp";
-import { User } from "./user.schema";
+import { UserTable } from "./user.schema";
 
 export class UserRepository {
   private db;
@@ -11,7 +11,7 @@ export class UserRepository {
     this.db = db;
   }
 
-  async getUserByGithubUserId(githubUserId: User["githubUserId"]) {
+  async getUserByGithubUserId(githubUserId: UserTable["githubUserId"]) {
     return await this.db
       .selectFrom("Users")
       .selectAll()
@@ -19,7 +19,7 @@ export class UserRepository {
       .executeTakeFirst();
   }
 
-  async getUserByGithubUserName(githubUserName: User["githubUserName"]) {
+  async getUserByGithubUserName(githubUserName: UserTable["githubUserName"]) {
     return await this.db
       .selectFrom("Users")
       .selectAll()
@@ -27,7 +27,7 @@ export class UserRepository {
       .executeTakeFirst();
   }
 
-  async getUserById(id: User["id"]) {
+  async getUserById(id: UserTable["id"]) {
     return await this.db
       .selectFrom("Users")
       .selectAll()
@@ -35,10 +35,10 @@ export class UserRepository {
       .executeTakeFirst();
   }
 
-  async createUser(props: Omit<User, "id" | "createdAt" | "updatedAt">) {
+  async createUser(props: Omit<UserTable, "id" | "createdAt" | "updatedAt">) {
     return await this.db
       .insertInto("Users")
-      .values(addTimeStamp(props) as User)
+      .values(addTimeStamp(props) as UserTable)
       .returningAll()
       .executeTakeFirstOrThrow();
   }

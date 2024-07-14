@@ -12,11 +12,24 @@ export function addTimeStamp<T>(obj: T): T & TimestampedObject {
   };
 }
 
-export function convertTimestampToISOString(obj: Partial<TimestampedObject>) {
+export function convertTimestampToISOString<T extends TimestampedObject>(
+  obj: T
+): Omit<T, "createdAt" | "updatedAt"> & {
+  createdAt: string;
+  updatedAt: string;
+} {
   if (obj.createdAt != null) {
-    obj.createdAt = new Date(obj.createdAt).toISOString();
+    (obj.createdAt as unknown as string) = new Date(
+      obj.createdAt
+    ).toISOString();
   }
   if (obj.updatedAt != null) {
-    obj.updatedAt = new Date(obj.updatedAt).toISOString();
+    (obj.createdAt as unknown as string) = new Date(
+      obj.updatedAt
+    ).toISOString();
   }
+  return obj as unknown as Omit<T, "createdAt" | "updatedAt"> & {
+    createdAt: string;
+    updatedAt: string;
+  };
 }

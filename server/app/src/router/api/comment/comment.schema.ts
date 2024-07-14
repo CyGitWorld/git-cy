@@ -1,4 +1,4 @@
-export interface Comment {
+export interface CommentTable {
   id: number;
   guestbookId: number;
   authorId: number;

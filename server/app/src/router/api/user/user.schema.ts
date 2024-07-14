@@ -1,4 +1,4 @@
-export interface User {
+export interface UserTable {
   id: number;
   githubUserId: number;
   thumbnailUrl: string;
@@ -8,4 +8,9 @@ export interface User {
   githubUrl: string;
   createdAt: number;
   updatedAt: number;
+}
+
+export interface User extends Omit<UserTable, "createdAt" | "updatedAt"> {
+  createdAt: string;
+  updatedAt: string;
 }

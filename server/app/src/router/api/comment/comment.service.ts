@@ -2,12 +2,7 @@ import { Env } from "../../../worker-env";
 import { User } from "../user/user.schema";
 import { UserService } from "../user/user.service";
 import { CommentRepository } from "./comment.repository";
-import { Comment } from "./comment.schema";
-
-type AllCommentDTO = {
-  guestbookId: number;
-  comments: Array<CommentWithRepies>;
-};
+import { CommentTable } from "./comment.schema";
 
 type CommentWithRepies = CommentDTO & { replies: CommentDTO[] };
 
@@ -15,8 +10,8 @@ interface CommentDTO {
   id: number;
   content: string;
   author: User;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export class CommentService {
@@ -73,24 +68,24 @@ export class CommentService {
   }
 
   async createComment(props: {
-    guestbookId: Comment["guestbookId"];
-    authorId: Comment["authorId"];
-    content: Comment["content"];
-    parentId: Comment["parentId"];
+    guestbookId: CommentTable["guestbookId"];
+    authorId: CommentTable["authorId"];
+    content: CommentTable["content"];
+    parentId: CommentTable["parentId"];
   }) {
     const res = await this.commentRepository.createComment(props);
     return res;
   }
 
   async updateComment(props: {
-    content: Comment["content"];
-    id: Comment["id"];
+    content: CommentTable["content"];
+    id: CommentTable["id"];
   }) {
     const res = await this.commentRepository.updateComment(props);
     return res;
   }
 
-  async deleteComment(props: { id: Comment["id"] }) {
+  async deleteComment(props: { id: CommentTable["id"] }) {
     const res = await this.commentRepository.deleteComment(props);
     return { isSuccess: res != null };
   }

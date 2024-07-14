@@ -1,8 +1,11 @@
 import { Kysely } from "kysely";
 
 import { DataBase } from "../../../types/database";
-import { addTimeStamp } from "../../../utils/addTimeStamp";
-import { Comment } from "./comment.schema";
+import {
+  addTimeStamp,
+  convertTimestampToISOString,
+} from "../../../utils/addTimeStamp";
+import { CommentTable } from "./comment.schema";
 
 export class CommentRepository {
   private db;
@@ -35,55 +38,61 @@ export class CommentRepository {
       ])
       .execute();
 
-    return res.map((data) => ({
-      id: data.id,
-      guestbookId: data.guestbookId,
-      content: data.content,
-      parentId: data.parentId,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
-      author: {
-        id: data.authorId,
-        githubUserId: data.authorGithubUserId,
-        thumbnailUrl: data.authorThumbnailUrl,
-        name: data.authorName,
-        githubUserName: data.authorGithubUserName,
-        bio: data.authorBio,
-        githubUrl: data.authorGithubUrl,
-        createdAt: data.authorCreatedAt,
-        updatedAt: data.authorUpdatedAt,
-      },
-    }));
+    return res.map((data) =>
+      convertTimestampToISOString({
+        id: data.id,
+        guestbookId: data.guestbookId,
+        content: data.content,
+        parentId: data.parentId,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
+        author: convertTimestampToISOString({
+          id: data.authorId,
+          githubUserId: data.authorGithubUserId,
+          thumbnailUrl: data.authorThumbnailUrl,
+          name: data.authorName,
+          githubUserName: data.authorGithubUserName,
+          bio: data.authorBio,
+          githubUrl: data.authorGithubUrl,
+          createdAt: data.authorCreatedAt,
+          updatedAt: data.authorUpdatedAt,
+        }),
+      })
+    );
   }
 
   async createComment(props: {
-    guestbookId: Comment["guestbookId"];
-    authorId: Comment["authorId"];
-    content: Comment["content"];
-    parentId: Comment["parentId"];
+    guestbookId: CommentTable["guestbookId"];
+    authorId: CommentTable["authorId"];
+    content: CommentTable["content"];
+    parentId: CommentTable["parentId"];
   }) {
-    return await this.db
+    const res = await this.db
       .insertInto("Comments")
-      .values(addTimeStamp(props) as Comment)
+      .values(addTimeStamp(props) as CommentTable)
       .returningAll()
       .executeTakeFirstOrThrow();
+
+    return convertTimestampToISOString(res);
   }
 
   async updateComment(props: {
-    content: Comment["content"];
-    id: Comment["id"];
+    content: CommentTable["content"];
+    id: CommentTable["id"];
   }) {
-    return await this.db
+    const res = await this.db
       .updateTable("Comments")
       .set({
         content: props.content,
       })
       .where("Comments.id", "=", props.id)
       .returningAll()
-      .executeTakeFirst();
+      .executeTakeFirstOrThrow();
+
+    return convertTimestampToISOString(res);
   }
 
-  async deleteComment(props: { id: Comment["id"] }) {
+  async deleteComment(props: { id: CommentTable["id"] }) {
     return await this.db
       .updateTable("Comments")
       .set({
