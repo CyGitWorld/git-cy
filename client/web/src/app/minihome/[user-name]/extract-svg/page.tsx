@@ -1,3 +1,4 @@
+import { ExtractSVGContent } from "./components/extract-svg-content";
 import { h1 } from "./page.css";
 
 export async function generateStaticParams() {
@@ -8,7 +9,9 @@ export default function ExtractSVG() {
   return (
     <>
       <h1 className={h1}>Get my guestbook on SVG</h1>
-      <section>Hello</section>
+      <section>
+        <ExtractSVGContent />
+      </section>
     </>
   );
 }
