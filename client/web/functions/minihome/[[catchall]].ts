@@ -6,9 +6,13 @@ export const onRequest: PagesFunction = async (context) => {
 
   const catchall = params.catchall;
 
+  console.log(catchall);
+
   if (typeof catchall === "string") {
     return next("/404");
   }
 
-  return next(`/${["__dynamic__", ...catchall.slice(1)].join("/")}`);
+  const convertedPath = `/${["__dynamic__", ...catchall.slice(1)].join("/")}`;
+
+  return next(convertedPath);
 };
