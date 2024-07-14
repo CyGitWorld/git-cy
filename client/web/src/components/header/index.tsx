@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AppBar, Button, Toolbar } from "react95";
 
+import { localStorage } from "@/common/local-storage";
 import { Container } from "@/components/container";
 
 import { navButtonListCss, plcaeholderCss, toolbarCss } from "./index.css";
@@ -17,16 +18,20 @@ export const Header = () => {
           <Toolbar className={toolbarCss}>
             <div>:Logo</div>
             <div className={navButtonListCss}>
-              <Link href="/minihome/:user-name/guestbook">
-                <Button
-                  size="lg"
-                  variant="menu"
-                  type="button"
-                  active={pathname.startsWith("/minihome")}
+              {localStorage.getItem("auth-token") != null ? (
+                <Link
+                  href={`/minihome/${localStorage.getItem("username")}/guestbook`}
                 >
-                  Minihome
-                </Button>
-              </Link>
+                  <Button
+                    size="lg"
+                    variant="menu"
+                    type="button"
+                    active={pathname.startsWith("/minihome")}
+                  >
+                    Minihome
+                  </Button>
+                </Link>
+              ) : null}
             </div>
           </Toolbar>
         </Container>

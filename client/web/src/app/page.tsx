@@ -4,7 +4,7 @@ import { Container } from "@/components/container";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
-import { MinihomeButton } from "./components/minihome-button";
+import { LinkButton } from "./components/link-button";
 import { mainContainerCss, titleCss } from "./page.css";
 
 export default function Home() {
@@ -19,10 +19,8 @@ export default function Home() {
             <br />
             :Description
           </h1>
-          <Link href="/minihome/:user-name/guestbook">
-            <MinihomeButton />
-          </Link>
         </Container>
+        <LinkButton />
       </main>
       <Footer />
     </>

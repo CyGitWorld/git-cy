@@ -7,12 +7,8 @@ export const GlobalUnhandledRejection = () => {
   useEffect(() => {
     console.log("attach");
     const fn = function (event: PromiseRejectionEvent) {
-      console.log(
-        "Unhandled rejection (promise: ",
-        event.promise,
-        ", reason: ",
-        event.reason,
-        ")."
+      window.alert(
+        `Error (promise: ${event.promise}, reason: ${event.reason}).`
       );
     };
 
