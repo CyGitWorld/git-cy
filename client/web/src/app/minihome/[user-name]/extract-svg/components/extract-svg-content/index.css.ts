@@ -16,5 +16,10 @@ export const previewContainer = style({
   justifyContent: "center",
   alignItems: "center",
   width: "100%",
-  height: "400px",
+  height: "350px",
+});
+
+export const svgImg = style({
+  width: "100%",
+  height: "100%",
 });
