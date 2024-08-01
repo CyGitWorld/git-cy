@@ -19,6 +19,7 @@ export class CommentRepository {
       .selectFrom("Comments")
       .where("Comments.guestbookId", "=", guestbookId)
       .where("Comments.isDeleted", "=", 0)
+      .orderBy("Comments.createdAt desc")
       .innerJoin("Users", "Users.id", "Comments.authorId")
       .select([
         "Comments.id",

@@ -23,7 +23,7 @@ export function convertTimestampToISOString<T extends TimestampedObject>(
     ).toISOString();
   }
   if (obj.updatedAt != null) {
-    (obj.createdAt as unknown as string) = new Date(
+    (obj.updatedAt as unknown as string) = new Date(
       obj.updatedAt
     ).toISOString();
   }
