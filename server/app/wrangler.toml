@@ -6,8 +6,8 @@ compatibility_flags = ["nodejs_compat"]
 
 
 
-
-
+[placement]
+mode = "smart"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
