@@ -31,27 +31,32 @@ export const createGuestbookRoute = ({
         return ctx.body(null, { status: 404 });
       }
 
+      const style = `
+
+
+
+
+      `;
+
       const svg = await (
-        <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
           <rect width="100%" height="100%" fill="#666666" />
-          <text
-            x="0"
-            y="16"
-            fontFamily="'sans-serif'"
-            fontSize="10"
-            fill="#000000"
-          >
-            {githubUserName}
-          </text>
-          <text
-            x="0"
-            y="30"
-            fontFamily="'sans-serif'"
-            fontSize="10"
-            fill="#000000"
-          >
-            {comments.map((c) => c.content).join("\n")}
-          </text>
+          <foreignObject width="100%" height="100%">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <style
+                dangerouslySetInnerHTML={{
+                  __html: style,
+                }}
+              ></style>
+              <h1 style={{ color: "gold" }}>{githubUserName}</h1>
+              {comments.map((comment) => (
+                <div>
+                  {comment.author.githubUserName}({comment.author.name}):{" "}
+                  {comment.content}
+                </div>
+              ))}
+            </div>
+          </foreignObject>
         </svg>
       );
 
