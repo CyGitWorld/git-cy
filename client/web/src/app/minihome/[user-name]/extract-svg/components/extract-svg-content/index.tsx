@@ -7,7 +7,7 @@ import { Frame } from "react95";
 import { Button } from "@/components/button";
 import { TextInput } from "@/components/text-input";
 
-import { input, inputWrapper, previewContainer } from "./index.css";
+import { input, inputWrapper, previewContainer, svgImg } from "./index.css";
 
 const SERVER_DOMAIN = process.env.NEXT_PUBLIC_SERVER_API_HOST;
 
@@ -34,7 +34,7 @@ export const ExtractSVGContent = () => {
       </div>
       <div className={previewContainer}>
         <Frame>
-          <Image src={EXTRACT_SVG_URL} alt="preview" fill objectFit="cover" />
+          <img src={EXTRACT_SVG_URL} alt="preview" className={svgImg} />
         </Frame>
       </div>
     </>
